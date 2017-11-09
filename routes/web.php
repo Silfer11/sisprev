@@ -18,6 +18,6 @@ Route::get('/', ['as' => 'home.index', 'uses' => 'HomeController@index']);
 
 Route::get('/home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
 
-Route::get('/Usuarios', ['as' => 'users.index', 'uses' => 'UsuariosController@index']);
+Route::get('/Usuarios', ['as' => 'users.index', 'uses' => 'UsuariosController@listar']);
 
-Route::get('/CadastrarUsuarios', ['as' => 'users.index', 'uses' => 'UsuariosController@index']);
+Route::get('/CadastrarUsuarios', ['as' => 'users.index', 'uses' => 'UsuariosController@cadastrar']);

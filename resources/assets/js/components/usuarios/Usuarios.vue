@@ -7,7 +7,7 @@
       <v-content>
         <v-container fluid fill-height>
           <v-layout justify-center align-center>
-            home
+            <listaUsuarios></listaUsuarios>
           </v-layout>
         </v-container>
       </v-content>
@@ -21,12 +21,14 @@
 <script>
   import rodape from '../layout/rodape/Rodape.vue';
   import topoMenu from '../layout/topoMenu/TopoMenu.vue';
+  import listaUsuarios from '../layout/listaUsuarios/ListaUsuarios.vue';
 
   export default {
 
     components:{
       rodape,
-      topoMenu
+      topoMenu,
+      listaUsuarios
     },
 
   }

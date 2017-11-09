@@ -19,13 +19,16 @@ window.Vue = require('vue');
  Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
 import home from './components/home/Home.vue';
-import cadusuarios from './components/layout.vue';
+import usuarios from './components/usuarios/Usuarios.vue';
+import cadusuario from './components/usuarios/CadastrarUsuario.vue';
+//import teste from './components/layout.vue';
 
 
 new Vue({
     el: '#app',
     components:{
       home,
-      cadusuarios
+      usuarios,
+      cadusuario
     },
 });

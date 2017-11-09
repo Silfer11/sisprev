@@ -9,8 +9,12 @@ use App\Usuario;
 
 class UsuariosController extends Controller
 {
-  public function index(){
-    return view('cadUsuario');//->with(compact('usuarios'));
+  public function listar(){
+    return view('usuarios.Usuarios');//->with(compact('usuarios'));
+  }
+
+  public function cadastrar(){
+    return view('usuarios.cadUsuario');//->with(compact('usuarios'));
   }
 
   //public function listar(){

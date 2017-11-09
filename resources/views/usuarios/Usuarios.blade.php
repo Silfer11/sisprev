@@ -10,7 +10,7 @@
   </head>
   <body>
       <div id='app'>
-        <cadusuarios></cadusuarios>
+        <usuarios></usuarios>
       </div>
   </body>
 </html>
