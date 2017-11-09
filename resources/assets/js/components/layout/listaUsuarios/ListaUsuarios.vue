@@ -49,9 +49,8 @@
 
 <script>
   export default {
-    props: ['usuarios'],
     mounted (){
-      this.$http.get('/api/Usuarios').then((req) => this.usuarios = req.data)
+      this.$http.get('/api/usuarios/listar').then((req) => this.items = req.data)
       //this.$http.get('./api/teste').then((req) => this.usuarios = req.data)
     },
     data () {

@@ -36549,12 +36549,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['usuarios'],
   mounted: function mounted() {
     var _this = this;
 
-    this.$http.get('/api/Usuarios').then(function (req) {
-      return _this.usuarios = req.data;
+    this.$http.get('/api/usuarios/listar').then(function (req) {
+      return _this.items = req.data;
     });
     //this.$http.get('./api/teste').then((req) => this.usuarios = req.data)
   },

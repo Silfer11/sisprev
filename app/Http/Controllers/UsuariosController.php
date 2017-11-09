@@ -17,7 +17,7 @@ class UsuariosController extends Controller
     return view('usuarios.cadUsuario');//->with(compact('usuarios'));
   }
 
-  //public function listar(){
-  //  return \response::json(Usuario::all(),200);
-  //}
+  public function pegaUsuarios(){
+    return \Response::json(Usuario::all(),200);
+  }
 }
