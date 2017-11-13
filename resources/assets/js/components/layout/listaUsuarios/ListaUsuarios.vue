@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Nutrition
+      Usuarios Cadastrados:
       <v-spacer></v-spacer>
       <v-text-field
         append-icon="search"
@@ -11,12 +11,14 @@
         v-model="search"
       ></v-text-field>
     </v-card-title>
+
     <v-data-table
         v-bind:headers="headers"
         v-bind:items="items"
         v-bind:search="search"
       >
       <template slot="items" scope="props">
+        <tr @click="props.expanded = !props.expanded">
         <td>
           <v-edit-dialog
             lazy
@@ -35,14 +37,23 @@
         <td class="text-xs-right">{{ props.item.nome }}</td>
         <td class="text-xs-right">{{ props.item.cpf }}</td>
         <td class="text-xs-right">{{ props.item.email }}</td>
-        <td class="text-xs-right">{{ props.item.permAdmin }}</td>
-        <td class="text-xs-right">{{ props.item.permGRec }}</td>
-        <td class="text-xs-right">{{ props.item.permGFin }}</td>
-        <td class="text-xs-right">{{ props.item.permLogs }}</td>
+        <td class="text-xs-right"><v-icon>edit</v-icon></td>
+        <td class="text-xs-right"><v-icon>delete</v-icon></td>
+      </tr>
       </template>
+
       <template slot="pageText" scope="{ pageStart, pageStop }">
         From {{ pageStart }} to {{ pageStop }}
       </template>
+
+      <template slot="expand" scope="props">
+      <v-card flat>
+        <v-card-text>Perm. administrador: {{ props.item.permAdmin }}; </v-card-text>
+        <v-card-text>Perm. gestao de receitas: {{ props.item.permLogs }}; </v-card-text>
+        <v-card-text>Perm. gestor financeiro: {{ props.item.permGFin }}; </v-card-text>
+        <v-card-text>Perm. Logs: {{ props.item.permLogs }}</v-card-text>
+      </v-card>
+    </template>
     </v-data-table>
   </v-card>
 </template>
@@ -51,7 +62,6 @@
   export default {
     mounted (){
       this.$http.get('/api/usuarios/listar').then((req) => this.items = req.data)
-      //this.$http.get('./api/teste').then((req) => this.usuarios = req.data)
     },
     data () {
       return {
@@ -64,13 +74,9 @@
           { text: 'Senha', value: 'senha' },
           { text: 'Nome', value: 'nome' },
           { text: 'CPF', value: 'cpf' },
-          { text: 'E-Mail', value: 'email' },
-          { text: 'permAdmin', value: 'permAdmin' },
-          { text: 'permGRec', value: 'permGRec' },
-          { text: 'permGFin', value: 'permGFin' },
-          { text: 'permLogs', value: 'permLogs' }
+          { text: 'E-Mail', value: 'email' }
         ],
-        items: [{usuario:'teste',senha:'teste',nome:'teste',cpf:'teste',email:'teste',permAdmin:'teste',permGRec:'teste',permGFin:'teste',permLogs:'teste'}]
+        items: []
       }
     }
   }

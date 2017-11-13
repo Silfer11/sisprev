@@ -17,4 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/usuarios/listar', ['as' => 'home.index', 'uses' => 'UsuariosController@pegaUsuarios']);
+Route::get('/usuarios/listar','UsuariosController@pegaUsuarios');
+
+Route::post('/usuarios/cadastrar', 'UsuariosController@registraUsuario');

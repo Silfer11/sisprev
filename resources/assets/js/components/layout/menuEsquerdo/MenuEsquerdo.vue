@@ -10,7 +10,7 @@
           <v-list-tile-title>Home</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-
+      
       <v-list-tile @click="redirecionar('CadastrarUsuarios')">
         <v-list-tile-action>
           <v-icon>settings</v-icon>

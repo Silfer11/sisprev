@@ -14,10 +14,10 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/', ['as' => 'home.index', 'uses' => 'HomeController@index']);
+Route::get('/', 'HomeController@index');
 
-Route::get('/home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
+Route::get('/home', 'HomeController@index');
 
-Route::get('/Usuarios', ['as' => 'users.index', 'uses' => 'UsuariosController@listar']);
+Route::get('/Usuarios', 'UsuariosController@telaLista');
 
-Route::get('/CadastrarUsuarios', ['as' => 'users.index', 'uses' => 'UsuariosController@cadastrar']);
+Route::get('/CadastrarUsuarios', 'UsuariosController@telaCadastro');

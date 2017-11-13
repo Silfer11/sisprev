@@ -82,6 +82,8 @@
       permGFin: false,
       permLogs: false,
 
+      idRPPS: 1,
+
       textRules: [
         (v) => !!v || 'O campo deve ser preenchido',
         (v) => v.length <= 40 || 'O campo pode ter no maximo 40 caracteres'
@@ -92,19 +94,30 @@
       ]
     }),
     methods: {
-      submit () {
-        if (this.$refs.form.validate()) {
-          // Native form submission is not yet supported
-          axios.post('/api/submit', {
-            name: this.nome,
-            email: this.email,
-            checkbox: this.checkbox
-          })
-        }
-      },
       clear () {
         this.$refs.form.reset()
+      },
+      submit () {
+        if (this.$refs.form.validate()) {
+          var cadastro = {
+          usuario: this.usuario,
+          senha: this.senha,
+          nome: this.nome,
+          name: this.nome,
+          cpf: this.cpf,
+          email: this.email,
+          permAdmin: this.permAdmin,
+          permGRec: this.permGRec,
+          permGFin: this.permGFin,
+          permLogs: this.permLogs,
+          idRPPS: this.idRPPS
+        }
+          this.$http.post('/api/usuarios/cadastrar', cadastro)
+          this.$refs.form.reset()
+          alert("cadastrado")
+        }
       }
     }
   }
 </script>
+}
