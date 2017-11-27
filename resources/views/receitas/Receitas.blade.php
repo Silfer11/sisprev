@@ -10,7 +10,7 @@
   </head>
   <body>
       <div id='app'>
-        <usuarios></usuarios>
+        <receitas></receitas>
       </div>
   </body>
 </html>

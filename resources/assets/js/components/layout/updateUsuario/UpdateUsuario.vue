@@ -1,4 +1,4 @@
-<template>
+<template >
   <v-form v-model="valid" ref="form" lazy-validation>
 
     <v-text-field
@@ -14,7 +14,6 @@
       v-model="senha"
       :rules="textRules"
       :counter="50"
-      type="password"
       required
     ></v-text-field>
 
@@ -58,21 +57,39 @@
       v-model="permLogs"
     ></v-checkbox>
 
-    <v-btn
-      @click="submit"
-      :disabled="!valid"
-    >
+    <v-btn @click="submit" :disabled="!valid">
       submit
     </v-btn>
-    <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>
 
 <script>
   export default {
+    mounted (){
+      var idProcura = window.location.pathname.split('/')[2]
+      this.$http.get('/api/usuarios/procurar/' + idProcura).then(
+        function(req){
+
+          this.id = req.data['id']
+          this.usuario = req.data['usuario']
+          this.senha = req.data['senha']
+          this.nome = req.data['nome']
+          this.cpf = req.data['cpf']
+          this.email = req.data['email']
+
+          this.permAdmin = req.data['permAdmin']
+          this.permGRec = req.data['permGRec']
+          this.permGFin = req.data['permGFin']
+          this.permLogs = req.data['permLogs']
+        }
+      )
+    },
+
     data () {
       return {
         valid: false,
+
+        id: '',
         usuario: '',
         senha: '',
         nome: '',
@@ -97,26 +114,21 @@
       }
     },
     methods: {
-      clear () {
-        this.$refs.form.reset()
-      },
       submit () {
         if (this.$refs.form.validate()) {
           var cadastro = {
-          usuario: this.usuario,
-          senha: this.senha,
-          nome: this.nome,
-          cpf: this.cpf,
-          email: this.email,
-          permAdmin: this.permAdmin,
-          permGRec: this.permGRec,
-          permGFin: this.permGFin,
-          permLogs: this.permLogs,
-          idRPPS: this.idRPPS
-        }
-          this.$http.post('/api/usuarios/cadastrar', cadastro)
-          this.$refs.form.reset()
-          alert("cadastrado")
+            id: this.id,
+            usuario: this.usuario,
+            senha: this.senha,
+            nome: this.nome,
+            cpf: this.cpf,
+            email: this.email,
+            permAdmin: this.permAdmin,
+            permGRec: this.permGRec,
+            permGFin: this.permGFin,
+            permLogs: this.permLogs
+          }
+          this.$http.post('/api/usuarios/atualizar', cadastro).then(alert("Atualizado"))
         }
       }
     }

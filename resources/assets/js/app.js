@@ -11,24 +11,33 @@ Vue.use( veevalidate );
 
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
- Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
 import home from './components/home/Home.vue';
 import usuarios from './components/usuarios/Usuarios.vue';
 import cadusuario from './components/usuarios/CadastrarUsuario.vue';
+import atusuario from './components/usuarios/AtualizarUsuario.vue';
+import receitas from './components/receitas/Receitas.vue';
 //import teste from './components/layout.vue';
 
 
 new Vue({
     el: '#app',
     components:{
+
+      //Home
       home,
+
+      //Usuarios
       usuarios,
-      cadusuario
+      cadusuario,
+      atusuario,
+
+      //Receitas
+      receitas
+
+      //Despesas
+
+      //Logs
     },
 });

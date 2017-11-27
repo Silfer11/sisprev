@@ -20,7 +20,7 @@
     },
 
     data: () => ({
-      drawer: false
+      drawer: true
     }),
   }
 </script>

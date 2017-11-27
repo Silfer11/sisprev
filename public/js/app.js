@@ -10923,7 +10923,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(6);
-module.exports = __webpack_require__(35);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
@@ -10944,6 +10944,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_usuarios_Usuarios_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_usuarios_Usuarios_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_usuarios_CadastrarUsuario_vue__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_usuarios_CadastrarUsuario_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_usuarios_CadastrarUsuario_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_usuarios_AtualizarUsuario_vue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_usuarios_AtualizarUsuario_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_usuarios_AtualizarUsuario_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_receitas_Receitas_vue__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_receitas_Receitas_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_receitas_Receitas_vue__);
 // require('./bootstrap');
 
 
@@ -10957,12 +10961,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vee_
 
 window.Vue = __webpack_require__(3);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+
+
 
 
 
@@ -10973,9 +10974,21 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] 
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app',
   components: {
+
+    //Home
     home: __WEBPACK_IMPORTED_MODULE_4__components_home_Home_vue___default.a,
+
+    //Usuarios
     usuarios: __WEBPACK_IMPORTED_MODULE_5__components_usuarios_Usuarios_vue___default.a,
-    cadusuario: __WEBPACK_IMPORTED_MODULE_6__components_usuarios_CadastrarUsuario_vue___default.a
+    cadusuario: __WEBPACK_IMPORTED_MODULE_6__components_usuarios_CadastrarUsuario_vue___default.a,
+    atusuario: __WEBPACK_IMPORTED_MODULE_7__components_usuarios_AtualizarUsuario_vue___default.a,
+
+    //Receitas
+    receitas: __WEBPACK_IMPORTED_MODULE_8__components_receitas_Receitas_vue___default.a
+
+    //Despesas
+
+    //Logs
   }
 });
 
@@ -35940,7 +35953,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
-      drawer: false
+      drawer: true
     };
   }
 });
@@ -36550,6 +36563,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       headers: [{ text: 'Usuario', align: 'left', value: 'usuario' }, { text: 'Senha', value: 'senha' }, { text: 'Nome', value: 'nome' }, { text: 'CPF', value: 'cpf' }, { text: 'E-Mail', value: 'email' }],
       items: []
     };
+  },
+
+  methods: {
+    exclude: function exclude(id) {
+      this.$http.post('/api/usuarios/excluir/' + id);
+      window.location.reload();
+    },
+    edit: function edit(id) {
+      window.location.href = 'http://127.0.0.1:8000/AtualizarUsuarios/' + id;
+    }
   }
 });
 
@@ -36659,14 +36682,38 @@ var render = function() {
                     _c(
                       "td",
                       { staticClass: "text-xs-right" },
-                      [_c("v-icon", [_vm._v("edit")])],
+                      [
+                        _c(
+                          "v-icon",
+                          {
+                            on: {
+                              click: function($event) {
+                                _vm.edit(props.item.id)
+                              }
+                            }
+                          },
+                          [_vm._v("edit")]
+                        )
+                      ],
                       1
                     ),
                     _vm._v(" "),
                     _c(
                       "td",
                       { staticClass: "text-xs-right" },
-                      [_c("v-icon", [_vm._v("delete")])],
+                      [
+                        _c(
+                          "v-icon",
+                          {
+                            on: {
+                              click: function($event) {
+                                _vm.exclude(props.item.id)
+                              }
+                            }
+                          },
+                          [_vm._v("delete")]
+                        )
+                      ],
                       1
                     )
                   ]
@@ -37020,6 +37067,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -37051,6 +37099,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }]
     };
   },
+
   methods: {
     clear: function clear() {
       this.$refs.form.reset();
@@ -37061,7 +37110,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           usuario: this.usuario,
           senha: this.senha,
           nome: this.nome,
-          name: this.nome,
           cpf: this.cpf,
           email: this.email,
           permAdmin: this.permAdmin,
@@ -37121,6 +37169,7 @@ var render = function() {
           label: "Senha",
           rules: _vm.textRules,
           counter: 50,
+          type: "password",
           required: ""
         },
         model: {
@@ -37297,6 +37346,1246 @@ if (false) {
 
 /***/ }),
 /* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(36)
+/* template */
+var __vue_template__ = __webpack_require__(40)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/usuarios/AtualizarUsuario.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-72e1b6a2", Component.options)
+  } else {
+    hotAPI.reload("data-v-72e1b6a2", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_updateUsuario_UpdateUsuario_vue__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_updateUsuario_UpdateUsuario_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layout_updateUsuario_UpdateUsuario_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  components: {
+    rodape: __WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue___default.a,
+    topoMenu: __WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue___default.a,
+    atusuario: __WEBPACK_IMPORTED_MODULE_2__layout_updateUsuario_UpdateUsuario_vue___default.a
+  }
+
+});
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(38)
+/* template */
+var __vue_template__ = __webpack_require__(39)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/layout/updateUsuario/UpdateUsuario.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f76b30e6", Component.options)
+  } else {
+    hotAPI.reload("data-v-f76b30e6", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var idProcura = window.location.pathname.split('/')[2];
+    this.$http.get('/api/usuarios/procurar/' + idProcura).then(function (req) {
+
+      this.id = req.data['id'];
+      this.usuario = req.data['usuario'];
+      this.senha = req.data['senha'];
+      this.nome = req.data['nome'];
+      this.cpf = req.data['cpf'];
+      this.email = req.data['email'];
+
+      this.permAdmin = req.data['permAdmin'];
+      this.permGRec = req.data['permGRec'];
+      this.permGFin = req.data['permGFin'];
+      this.permLogs = req.data['permLogs'];
+    });
+  },
+  data: function data() {
+    return {
+      valid: false,
+
+      id: '',
+      usuario: '',
+      senha: '',
+      nome: '',
+      cpf: '',
+      email: '',
+
+      permAdmin: false,
+      permGRec: false,
+      permGFin: false,
+      permLogs: false,
+
+      idRPPS: 1,
+
+      textRules: [function (v) {
+        return !!v || 'O campo deve ser preenchido';
+      }, function (v) {
+        return v.length <= 40 || 'O campo pode ter no maximo 40 caracteres';
+      }],
+      emailRules: [function (v) {
+        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail invalido'
+        );
+      }, function (v) {
+        return !!v || 'Por favor, preencha o campo E-mail';
+      }]
+    };
+  },
+
+  methods: {
+    submit: function submit() {
+      if (this.$refs.form.validate()) {
+        var cadastro = {
+          id: this.id,
+          usuario: this.usuario,
+          senha: this.senha,
+          nome: this.nome,
+          cpf: this.cpf,
+          email: this.email,
+          permAdmin: this.permAdmin,
+          permGRec: this.permGRec,
+          permGFin: this.permGFin,
+          permLogs: this.permLogs
+        };
+        this.$http.post('/api/usuarios/atualizar', cadastro).then(alert("Atualizado"));
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-form",
+    {
+      ref: "form",
+      attrs: { "lazy-validation": "" },
+      model: {
+        value: _vm.valid,
+        callback: function($$v) {
+          _vm.valid = $$v
+        },
+        expression: "valid"
+      }
+    },
+    [
+      _c("v-text-field", {
+        attrs: {
+          label: "Usuario",
+          rules: _vm.textRules,
+          counter: 50,
+          required: ""
+        },
+        model: {
+          value: _vm.usuario,
+          callback: function($$v) {
+            _vm.usuario = $$v
+          },
+          expression: "usuario"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-text-field", {
+        attrs: {
+          label: "Senha",
+          rules: _vm.textRules,
+          counter: 50,
+          required: ""
+        },
+        model: {
+          value: _vm.senha,
+          callback: function($$v) {
+            _vm.senha = $$v
+          },
+          expression: "senha"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-text-field", {
+        attrs: {
+          label: "Nome",
+          rules: _vm.textRules,
+          counter: 50,
+          required: ""
+        },
+        model: {
+          value: _vm.nome,
+          callback: function($$v) {
+            _vm.nome = $$v
+          },
+          expression: "nome"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-text-field", {
+        attrs: {
+          label: "CPF",
+          rules: _vm.textRules,
+          counter: 11,
+          required: ""
+        },
+        model: {
+          value: _vm.cpf,
+          callback: function($$v) {
+            _vm.cpf = $$v
+          },
+          expression: "cpf"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-text-field", {
+        attrs: { label: "E-mail", rules: _vm.emailRules, required: "" },
+        model: {
+          value: _vm.email,
+          callback: function($$v) {
+            _vm.email = $$v
+          },
+          expression: "email"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-checkbox", {
+        attrs: { label: "Perm. de Administrador" },
+        model: {
+          value: _vm.permAdmin,
+          callback: function($$v) {
+            _vm.permAdmin = $$v
+          },
+          expression: "permAdmin"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-checkbox", {
+        attrs: { label: "Perm. de Gest. Recursos" },
+        model: {
+          value: _vm.permGRec,
+          callback: function($$v) {
+            _vm.permGRec = $$v
+          },
+          expression: "permGRec"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-checkbox", {
+        attrs: { label: "Perm. de Gest. Financeira" },
+        model: {
+          value: _vm.permGFin,
+          callback: function($$v) {
+            _vm.permGFin = $$v
+          },
+          expression: "permGFin"
+        }
+      }),
+      _vm._v(" "),
+      _c("v-checkbox", {
+        attrs: { label: "Perm. de Logs" },
+        model: {
+          value: _vm.permLogs,
+          callback: function($$v) {
+            _vm.permLogs = $$v
+          },
+          expression: "permLogs"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "v-btn",
+        { attrs: { disabled: !_vm.valid }, on: { click: _vm.submit } },
+        [_vm._v("\n    submit\n  ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f76b30e6", module.exports)
+  }
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { id: "inspire", light: "" } },
+    [
+      _c("topoMenu"),
+      _vm._v(" "),
+      _c(
+        "main",
+        [
+          _c(
+            "v-content",
+            [
+              _c(
+                "v-container",
+                { attrs: { fluid: "", "fill-height": "" } },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { "justify-center": "", "align-center": "" } },
+                    [_c("atusuario")],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("rodape")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-72e1b6a2", module.exports)
+  }
+}
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(42)
+/* template */
+var __vue_template__ = __webpack_require__(46)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/receitas/Receitas.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-426d1508", Component.options)
+  } else {
+    hotAPI.reload("data-v-426d1508", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_receitas_Receitas_vue__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layout_receitas_Receitas_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__layout_receitas_Receitas_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  components: {
+    rodape: __WEBPACK_IMPORTED_MODULE_0__layout_rodape_Rodape_vue___default.a,
+    topoMenu: __WEBPACK_IMPORTED_MODULE_1__layout_topoMenu_TopoMenu_vue___default.a,
+    receitas: __WEBPACK_IMPORTED_MODULE_2__layout_receitas_Receitas_vue___default.a
+  }
+
+});
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(44)
+/* template */
+var __vue_template__ = __webpack_require__(45)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/layout/receitas/Receitas.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-653e3ffe", Component.options)
+  } else {
+    hotAPI.reload("data-v-653e3ffe", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$http.get('/api/receitas/listar').then(function (req) {
+      return _this.items = req.data;
+    });
+  },
+  data: function data() {
+    return {
+      max25chars: function max25chars(v) {
+        return v.length <= 25 || 'Input too long!';
+      },
+      tmp: '',
+      search: '',
+      pagination: {},
+      headers: [{ text: 'Descricao', align: 'left', value: 'descricao' }, { text: 'Origem', value: 'origem' }, { text: 'Aliquota', value: 'aliq' }, { text: 'Parcela', value: 'parcela' }, { text: 'Valor Devido', value: 'valDevido' }, { text: 'Data', value: 'data' }, { text: 'Observacoes', value: 'observacoes' }],
+      items: [],
+
+      date: null,
+      menu: false,
+      modal: false,
+
+      valid: false,
+
+      descricao: '',
+      origem: '',
+      aliq: '',
+      parcela: '',
+      valDevido: '',
+      data: '',
+      observacoes: '',
+
+      idRPPS: 1
+    };
+  },
+
+  methods: {
+    imprimir: function imprimir() {
+      window.print();
+    },
+    exclude: function exclude(id) {
+      this.$http.post('/api/Receitas/excluir/' + id);
+      window.location.reload();
+    },
+    edit: function edit(id) {
+      window.location.href = 'http://127.0.0.1:8000/AtualizarUsuarios/' + id;
+    },
+    clear: function clear() {
+      this.$refs.form.reset();
+    },
+    submit: function submit() {
+      if (this.$refs.form.validate()) {
+        var cadastro = {
+          descricao: this.descricao,
+          origem: this.origem,
+          aliq: this.aliq,
+          parcela: this.parcela,
+          valDevido: this.valDevido,
+          data: this.data,
+          observacoes: this.observacoes,
+          idRPPS: this.idRPPS
+        };
+        console.log(cadastro);
+        this.$http.post('/api/receitas/cadastrar', cadastro);
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-card",
+    [
+      _c(
+        "v-card-title",
+        [
+          _vm._v("Receitas:\n\n    "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-menu",
+            {
+              attrs: {
+                lazy: "",
+                "close-on-content-click": false,
+                transition: "scale-transition",
+                "offset-y": "",
+                "full-width": "",
+                "nudge-right": 40,
+                "max-width": "290px",
+                "min-width": "290px"
+              },
+              model: {
+                value: _vm.menu,
+                callback: function($$v) {
+                  _vm.menu = $$v
+                },
+                expression: "menu"
+              }
+            },
+            [
+              _c("v-text-field", {
+                attrs: {
+                  slot: "activator",
+                  label: "Data",
+                  "prepend-icon": "event",
+                  readonly: ""
+                },
+                slot: "activator",
+                model: {
+                  value: _vm.date,
+                  callback: function($$v) {
+                    _vm.date = $$v
+                  },
+                  expression: "date"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-date-picker", {
+                attrs: {
+                  type: "month",
+                  "no-title": "",
+                  scrollable: "",
+                  actions: ""
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(ref) {
+                      var save = ref.save
+                      var cancel = ref.cancel
+                      return [
+                        _c(
+                          "v-card-actions",
+                          [
+                            _c("v-spacer"),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { flat: "", color: "primary" },
+                                on: { click: cancel }
+                              },
+                              [_vm._v("Cancel")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { flat: "", color: "primary" },
+                                on: { click: save }
+                              },
+                              [_vm._v("OK")]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    }
+                  }
+                ]),
+                model: {
+                  value: _vm.date,
+                  callback: function($$v) {
+                    _vm.date = $$v
+                  },
+                  expression: "date"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-text-field", {
+            attrs: {
+              "append-icon": "search",
+              label: "Search",
+              "single-line": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.search,
+              callback: function($$v) {
+                _vm.search = $$v
+              },
+              expression: "search"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { flat: "" },
+              on: {
+                click: function($event) {
+                  _vm.imprimir()
+                }
+              }
+            },
+            [_vm._v("Imprimir")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-data-table", {
+        attrs: { headers: _vm.headers, items: _vm.items, search: _vm.search },
+        scopedSlots: _vm._u([
+          {
+            key: "items",
+            fn: function(props) {
+              return [
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function($event) {
+                        props.expanded = !props.expanded
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "v-edit-dialog",
+                          { attrs: { lazy: "" } },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(props.item.receita) +
+                                "\n              "
+                            ),
+                            _c("v-text-field", {
+                              attrs: {
+                                slot: "input",
+                                label: "Edit",
+                                "single-line": "",
+                                counter: "",
+                                rules: [_vm.max25chars]
+                              },
+                              slot: "input",
+                              model: {
+                                value: props.item.descricao,
+                                callback: function($$v) {
+                                  _vm.$set(props.item, "descricao", $$v)
+                                },
+                                expression: "props.item.descricao"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.descricao))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.origem))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.aliq))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.valDevido))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.data))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-right" }, [
+                      _vm._v(_vm._s(props.item.observacoes))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "text-xs-right" },
+                      [
+                        _c(
+                          "v-icon",
+                          {
+                            on: {
+                              click: function($event) {
+                                _vm.edit(props.item.id)
+                              }
+                            }
+                          },
+                          [_vm._v("edit")]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "text-xs-right" },
+                      [
+                        _c(
+                          "v-icon",
+                          {
+                            on: {
+                              click: function($event) {
+                                _vm.exclude(props.item.id)
+                              }
+                            }
+                          },
+                          [_vm._v("delete")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]
+            }
+          },
+          {
+            key: "pageText",
+            fn: function(ref) {
+              var pageStart = ref.pageStart
+              var pageStop = ref.pageStop
+              return [
+                _vm._v(
+                  "\n      From " +
+                    _vm._s(pageStart) +
+                    " to " +
+                    _vm._s(pageStop) +
+                    "\n    "
+                )
+              ]
+            }
+          }
+        ])
+      }),
+      _vm._v(" "),
+      [
+        _c(
+          "v-form",
+          {
+            ref: "form",
+            attrs: { "lazy-validation": "" },
+            model: {
+              value: _vm.valid,
+              callback: function($$v) {
+                _vm.valid = $$v
+              },
+              expression: "valid"
+            }
+          },
+          [
+            _c("v-text-field", {
+              attrs: { label: "Descricao" },
+              model: {
+                value: _vm.descricao,
+                callback: function($$v) {
+                  _vm.descricao = $$v
+                },
+                expression: "descricao"
+              }
+            }),
+            _vm._v(" "),
+            _c("v-text-field", {
+              attrs: { label: "Origem" },
+              model: {
+                value: _vm.origem,
+                callback: function($$v) {
+                  _vm.origem = $$v
+                },
+                expression: "origem"
+              }
+            }),
+            _vm._v(" "),
+            _c("v-text-field", {
+              attrs: { label: "Aliquota" },
+              model: {
+                value: _vm.aliq,
+                callback: function($$v) {
+                  _vm.aliq = $$v
+                },
+                expression: "aliq"
+              }
+            }),
+            _vm._v(" "),
+            _c("v-text-field", {
+              attrs: { label: "Valor Devido" },
+              model: {
+                value: _vm.valDevido,
+                callback: function($$v) {
+                  _vm.valDevido = $$v
+                },
+                expression: "valDevido"
+              }
+            }),
+            _vm._v(" "),
+            _c("v-text-field", {
+              attrs: { label: "Data" },
+              model: {
+                value: _vm.data,
+                callback: function($$v) {
+                  _vm.data = $$v
+                },
+                expression: "data"
+              }
+            }),
+            _vm._v(" "),
+            _c("v-text-field", {
+              attrs: { label: "Observacoes" },
+              model: {
+                value: _vm.observacoes,
+                callback: function($$v) {
+                  _vm.observacoes = $$v
+                },
+                expression: "observacoes"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-btn",
+              { attrs: { disabled: !_vm.valid }, on: { click: _vm.submit } },
+              [_vm._v("\n        submit\n      ")]
+            ),
+            _vm._v(" "),
+            _c("v-btn", { on: { click: _vm.clear } }, [_vm._v("clear")])
+          ],
+          1
+        )
+      ]
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-653e3ffe", module.exports)
+  }
+}
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { id: "inspire", light: "" } },
+    [
+      _c("topoMenu"),
+      _vm._v(" "),
+      _c(
+        "main",
+        [
+          _c(
+            "v-content",
+            [
+              _c(
+                "v-container",
+                { attrs: { fluid: "", "fill-height": "" } },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { "justify-center": "", "align-center": "" } },
+                    [_c("receitas")],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("rodape")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-426d1508", module.exports)
+  }
+}
+
+/***/ }),
+/* 47 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -15,4 +15,12 @@ class rpps extends Model
     public function usuario(){
       return $this->hasMany(Usuario::class, 'idRPPS');
     }
+
+    public function receita(){
+      return $this->hasMany(Receita::class, 'idRPPS');
+    }
+
+    public function despesa(){
+      return $this->hasMany(Despesa::class, 'idRPPS');
+    }
 }

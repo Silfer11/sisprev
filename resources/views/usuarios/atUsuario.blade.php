@@ -10,7 +10,7 @@
   </head>
   <body>
       <div id='app'>
-        <usuarios></usuarios>
+        <atusuario></atusuario>
       </div>
   </body>
 </html>

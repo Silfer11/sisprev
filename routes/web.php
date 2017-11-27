@@ -18,6 +18,18 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/home', 'HomeController@index');
 
+//usuario
+
 Route::get('/Usuarios', 'UsuariosController@telaLista');
 
 Route::get('/CadastrarUsuarios', 'UsuariosController@telaCadastro');
+
+Route::get('/AtualizarUsuarios/{id}', 'UsuariosController@telaAtualizacao');
+
+//receita
+
+Route::get('/Receitas', 'ReceitasController@telaLista');
+
+//despesa
+
+// Route::get('/Despesa', 'DespesasController@telaLista');

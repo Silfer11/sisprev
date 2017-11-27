@@ -37,8 +37,8 @@
         <td class="text-xs-right">{{ props.item.nome }}</td>
         <td class="text-xs-right">{{ props.item.cpf }}</td>
         <td class="text-xs-right">{{ props.item.email }}</td>
-        <td class="text-xs-right"><v-icon>edit</v-icon></td>
-        <td class="text-xs-right"><v-icon>delete</v-icon></td>
+        <td class="text-xs-right"><v-icon @click="edit(props.item.id)">edit</v-icon></td>
+        <td class="text-xs-right"><v-icon @click="exclude(props.item.id)">delete</v-icon></td>
       </tr>
       </template>
 
@@ -77,6 +77,15 @@
           { text: 'E-Mail', value: 'email' }
         ],
         items: []
+      }
+    },
+    methods: {
+      exclude(id){
+        this.$http.post('/api/usuarios/excluir/' + id)
+        window.location.reload()
+      },
+      edit(id){
+        window.location.href='http://127.0.0.1:8000/AtualizarUsuarios/' + id
       }
     }
   }

@@ -5,40 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Usuario;
+use App\Receita;
 
-class UsuariosController extends Controller
+class ReceitasController extends Controller
 {
   public function telaLista(){
-    return view('usuarios.Usuarios');//->with(compact('usuarios'));
+    return view('receitas.Receitas');//->with(compact('usuarios'));
   }
 
-  public function telaCadastro(){
-    return view('usuarios.cadUsuario');
-  }
-
-  public function telaAtualizacao(){
-    return view('usuarios.atUsuario');//->with(compact('usuarios'));
-  }
-
-  public function pegaUsuarios(){
-    return \Response::json(Usuario::all(),200);
+  public function pegaReceitas(){
+    return \Response::json(Receita::all(),200);
   }
 
   public function registrar(Request $request){
-    Usuario::create($request->all());
+    Receita::create($request->all());
   }
 
   public function excluir(Request $request){
-    Usuario::destroy($request->id);
+    Receita::destroy($request->id);
   }
 
-  public function procurar(Request $request){
-    return \Response::json(Usuario::find($request->id));
-  }
-
-  public function atualizar(Request $request){
-    $user = Usuario::find($request->id);
+   public function atualizar(Request $request){
+    $user = Receita::find($request->id);
 
     if($user->usuario !== $request->usuario)
       $user->usuario = $request->usuario;
