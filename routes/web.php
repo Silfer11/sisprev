@@ -10,25 +10,31 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('home');
-});
 
-Route::get('/', 'HomeController@index');
+Route::get('{path}', function () {
+    return view('index');
+})->where('path', '(.*)');
 
-Route::get('/home', 'HomeController@index');
 
-//usuario
-
-Route::get('/Usuarios', 'UsuariosController@telaLista');
-
-Route::get('/CadastrarUsuarios', 'UsuariosController@telaCadastro');
-
-Route::get('/AtualizarUsuarios/{id}', 'UsuariosController@telaAtualizacao');
-
-//receita
-
-Route::get('/Receitas', 'ReceitasController@telaLista');
+// Route::get('/', function () {
+//     return view('home');
+// });
+//
+// Route::get('/', 'HomeController@index');
+//
+// Route::get('/home', 'HomeController@index');
+//
+// //usuario
+//
+// Route::get('/Usuarios', 'UsuariosController@telaLista');
+//
+// Route::get('/CadastrarUsuarios', 'UsuariosController@telaCadastro');
+//
+// Route::get('/AtualizarUsuarios/{id}', 'UsuariosController@telaAtualizacao');
+//
+// //receita
+//
+// Route::get('/Receitas', 'ReceitasController@telaLista');
 
 //despesa
 

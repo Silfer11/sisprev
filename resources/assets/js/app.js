@@ -3,7 +3,10 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueResource from 'vue-resource';
-import veevalidate from 'vee-validate'
+import veevalidate from 'vee-validate';
+
+import router from './router';
+import layout from './components/layout';
 
 Vue.use( Vuetify );
 Vue.use( VueResource );
@@ -13,31 +16,10 @@ window.Vue = require('vue');
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
-import home from './components/home/Home.vue';
-import usuarios from './components/usuarios/Usuarios.vue';
-import cadusuario from './components/usuarios/CadastrarUsuario.vue';
-import atusuario from './components/usuarios/AtualizarUsuario.vue';
-import receitas from './components/receitas/Receitas.vue';
-//import teste from './components/layout.vue';
-
-
 new Vue({
     el: '#app',
+    router,
     components:{
-
-      //Home
-      home,
-
-      //Usuarios
-      usuarios,
-      cadusuario,
-      atusuario,
-
-      //Receitas
-      receitas
-
-      //Despesas
-
-      //Logs
-    },
+      layout
+    }
 });

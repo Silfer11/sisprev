@@ -12,6 +12,10 @@ class Despesa extends Model
 
     protected $table = 'despesas';
 
+    public function DespesaCategoria(){
+      return $this->belongsTo(DespesaCategoria::class, 'idCategoria');
+    }
+
     public function rpps(){
       return $this->belongsTo(rpps::class, 'idRPPS');
     }

@@ -9,52 +9,52 @@ use App\Receita;
 
 class ReceitasController extends Controller
 {
-  public function telaLista(){
-    return view('receitas.Receitas');//->with(compact('usuarios'));
-  }
+    public function listar(Request $request){
 
-  public function pegaReceitas(){
-    return \Response::json(Receita::all(),200);
-  }
+      // o primeiro dia do mês hard coded
+      $dateStart = date("Y-m-01", strtotime($request->date));
 
-  public function registrar(Request $request){
-    Receita::create($request->all());
-  }
+      // t é equivalente ao último dia do mês
+      $dateEnd = date("Y-m-t", strtotime($request->date));
 
-  public function excluir(Request $request){
-    Receita::destroy($request->id);
-  }
+      return \Response::json(Receita::with('ReceitaDescricao')->whereBetween('data', [ $dateStart , $dateEnd ])->get(),200);
+    }
 
-   public function atualizar(Request $request){
-    $user = Receita::find($request->id);
+    public function registrar(Request $request){
+      Receita::create($request->all());
+    }
 
-    if($user->usuario !== $request->usuario)
-      $user->usuario = $request->usuario;
+    public function excluir(Request $request){
+      Receita::destroy($request->id);
+    }
 
-    if($user->senha !== $request->senha)
-      $user->senha = $request->senha;
+     public function atualizar(Request $request){
+      $receita = Receita::find($request->id);
 
-    if($user->nome !== $request->nome)
-      $user->nome = $request->nome;
+      if($receita->idDescricao !== $request->idDescricao)
+        $receita->idDescricao = $request->idDescricao;
 
-    if($user->cpf !== $request->cpf)
-      $user->cpf = $request->cpf;
+      if($receita->origem !== $request->origem)
+        $receita->origem = $request->origem;
 
-    if($user->email !== $request->email)
-      $user->email = $request->email;
+      if($receita->aliq !== $request->aliq)
+        $receita->aliq = $request->aliq;
 
-    if($user->permAdmin !== $request->permAdmin)
-      $user->permAdmin = $request->permAdmin;
+      if($receita->parcela !== $request->parcela)
+        $receita->parcela = $request->parcela;
 
-    if($user->permGRec !== $request->permGRec)
-      $user->permGRec = $request->permGRec;
+      if($receita->valDevido !== $request->valDevido)
+        $receita->valDevido = $request->valDevido;
 
-    if($user->permGFin !== $request->permGFin)
-      $user->permGFin = $request->permGFin;
+      if($receita->data !== $request->data)
+        $receita->data = $request->data;
 
-    if($user->permLogs !== $request->permLogs)
-      $user->permLogs = $request->permLogs;
+      if($receita->observacoes !== $request->observacoes)
+        $receita->observacoes = $request->observacoes;
 
-    $user->save();
-  }
+      if($receita->idRPPS !== $request->idRPPS)
+          $receita->idRPPS = $request->idRPPS;
+
+      $receita->save();
+    }
 }

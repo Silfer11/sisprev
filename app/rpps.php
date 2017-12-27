@@ -12,15 +12,19 @@ class rpps extends Model
 
     protected $table = 'rpps';
 
-    public function usuario(){
+    public function Usuario(){
       return $this->hasMany(Usuario::class, 'idRPPS');
     }
 
-    public function receita(){
+    public function Receita(){
       return $this->hasMany(Receita::class, 'idRPPS');
     }
 
-    public function despesa(){
+    public function Despesa(){
       return $this->hasMany(Despesa::class, 'idRPPS');
+    }
+
+    public function Fundo(){
+      return $this->hasMany(Fundo::class, 'idRPPS');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRPPSTable extends Migration
+class CreateReceitasDescricoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRPPSTable extends Migration
      */
     public function up()
     {
-        Schema::create('rpps', function (Blueprint $table) {
-              $table->increments('id');
+        Schema::create('receitasDescricoes', function (Blueprint $table) {
+            $table->increments('id');
 
-              $table->string('nome',60);
+            $table->string('descricao', 50);
 
-              $table->timestamps();
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateRPPSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rpps');
+        Schema::dropIfExists('receitasDescricoes');
     }
 }

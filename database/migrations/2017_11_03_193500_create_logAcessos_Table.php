@@ -18,7 +18,7 @@ class CreateLogAcessosTable extends Migration
 
             $table->string('cpf', 11);
             $table->datetime('dataEntrada');
-            $table->datetime('dataSaida');
+            $table->datetime('dataSaida')->nullable();
 
             $table->integer('idUsuario')->unsigned();
             $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade');

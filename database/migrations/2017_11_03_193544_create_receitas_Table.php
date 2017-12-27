@@ -16,13 +16,15 @@ class CreateReceitasTable extends Migration
         Schema::create('receitas', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('descricao', 50);
+            $table->integer('idDescricao')->unsigned();
+            $table->foreign('idDescricao')->references('id')->on('receitasDescricoes')->onDelete('cascade');
+
             $table->string('origem', 50);
-            $table->float('aliq', 8, 2);
-            $table->integer('parcela');
+            $table->float('aliq', 8, 2)->nullable();
+            $table->integer('parcela')->nullable();
             $table->float('valDevido', 8, 2);
             $table->date('data');
-            $table->string('observacoes', 50);
+            $table->string('observacoes', 50)->nullable();
 
             $table->integer('idRPPS')->unsigned();
             $table->foreign('idRPPS')->references('id')->on('rpps')->onDelete('cascade');

@@ -9,19 +9,7 @@ use App\Usuario;
 
 class UsuariosController extends Controller
 {
-  public function telaLista(){
-    return view('usuarios.Usuarios');//->with(compact('usuarios'));
-  }
-
-  public function telaCadastro(){
-    return view('usuarios.cadUsuario');
-  }
-
-  public function telaAtualizacao(){
-    return view('usuarios.atUsuario');//->with(compact('usuarios'));
-  }
-
-  public function pegaUsuarios(){
+  public function listar(){
     return \Response::json(Usuario::all(),200);
   }
 
@@ -31,10 +19,6 @@ class UsuariosController extends Controller
 
   public function excluir(Request $request){
     Usuario::destroy($request->id);
-  }
-
-  public function procurar(Request $request){
-    return \Response::json(Usuario::find($request->id));
   }
 
   public function atualizar(Request $request){

@@ -1,38 +1,32 @@
 <template>
   <v-app id="inspire" light>
 
-    <topoMenu></topoMenu>
+    <MenuTopo></MenuTopo>
 
-    <main>
-      <v-content>
-        <v-container fluid fill-height>
-          <v-layout justify-center align-center>
-            <cadUsuario></cadUsuario>
-            <listaUsuarios></listaUsuarios>
-          </v-layout>
-        </v-container>
-      </v-content>
-    </main>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
 
-    <rodape></rodape>
+          <router-view></router-view>
+
+        </v-layout>
+      </v-container>
+    </v-content>
+
+    <Rodape></Rodape>
 
   </v-app>
 </template>
 
 <script>
-  import rodape from './rodape/Rodape.vue';
-  import topoMenu from './topoMenu/TopoMenu.vue';
-  import cadUsuario from './cadUsuario/CadUsuario.vue';
-  import listaUsuarios from './listaUsuarios/ListaUsuarios.vue';
+  import Rodape from './layout/Rodape';
+  import MenuTopo from './layout/MenuTopo';
 
   export default {
 
     components:{
-      rodape,
-      topoMenu,
-      cadUsuario,
-      listaUsuarios
-    },
-
+      Rodape,
+      MenuTopo
+    }
   }
 </script>

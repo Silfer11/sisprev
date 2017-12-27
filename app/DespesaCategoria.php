@@ -10,13 +10,9 @@ class DespesaCategoria extends Model
         'id', 'categoria'
     ];
 
-    protected $table = 'despesascategorias';
+    protected $table = 'despesasCategorias';
 
     public function Despesa(){
       return $this->belongsTo(Despesa::class, 'idCategoria');
-    }
-
-    public function despesa(){
-      return $this->has(Despesa::class, 'id');
     }
 }

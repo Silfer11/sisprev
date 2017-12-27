@@ -18,11 +18,11 @@ class CreateFundosTable extends Migration
 
             $table->integer('contContab');
             $table->string('nome', 50);
-            $table->string('CNPJ', 50);
+            $table->integer('cnpj');
             $table->string('segmento', 50);
             $table->string('indReferencia', 50);
-            $table->string('conta', 50);
-            $table->float('nivelRisco', 8, 2);
+            $table->integer('conta');
+            $table->string('nivelRisco', 50);
             $table->string('risco', 50);
 
             $table->integer('idBanco')->unsigned();
