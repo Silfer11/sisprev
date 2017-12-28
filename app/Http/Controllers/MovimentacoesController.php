@@ -14,7 +14,7 @@ class MovimentacoesController extends Controller
 
     return \Response::json(Movimentacao::with('Fundo.Banco', 'Fundo.Enquadramento')->where('data', '=', $date)->get(),200);
   }
-
+  
   public function registrar(Request $request){
 
     $movimentacao_inicial = new Movimentacao();

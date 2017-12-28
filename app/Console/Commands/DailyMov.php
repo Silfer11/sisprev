@@ -42,12 +42,33 @@ class DailyMov extends Command
     {
         $Fundos = Fundo::all();
 
-        foreach ($Fundos as $fundo) {
-           $movimentacao_inicial = new Movimentacao();
-           $movimentacao_inicial->idFundo = $fundo->id;
-           $movimentacao_inicial->data = date('Y-m-d');
+        $data_atual = date('Y-m-d');
 
-           $movimentacao_inicial->save();
+        //verifica se é ultimo dia do mes
+        if($data_atual == date('Y-m-t')){
+          $data_posterior = date('Y-m-01', strtotime('+1 mounth'));
+        }
+        //verifica se é ultimo dia do mes e do ano
+        elseif($data_atual == date('Y-12-t')){
+          $data_posterior = date('Y-01-01', strtotime('+1 year'));
+        }
+        //se não, taca ficha
+        else{
+          $data_posterior = date('Y-m-d', strtotime('+1 days'));
+        }
+
+        foreach ($Fundos as $Fundo) {
+
+          //todo pegar saldo anterior
+           $mov_antiga = Movimentacao::where('data', $data_atual)->where('idFundo', $Fundo->id)->firstOrFail();
+
+           $mov_nova = new Movimentacao();
+
+           $mov_nova->idFundo = $Fundo->id;
+           $mov_nova->inicial = $mov_antiga->final;
+           $mov_nova->data = $data_posterior;
+
+           $mov_nova->save();
         }
     }
 }

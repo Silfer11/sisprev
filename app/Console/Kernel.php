@@ -26,8 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-
-        $schedule->command('daily:mov')->timezone('America/Sao_Paulo')->dailyAt('07:00');
+        $schedule->command('daily:mov')->timezone('America/Brasilia');->dailyAt('20:00');
     }
 
     /**
