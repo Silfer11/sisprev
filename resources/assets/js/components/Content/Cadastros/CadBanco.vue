@@ -59,7 +59,7 @@
           var cadastro = {
             nome: this.nome
           }
-          this.$http.post('http://127.0.0.1:8000/api/fundos/bancos/cadastrar', cadastro)
+          this.$http.post('/api/fundos/bancos/cadastrar', cadastro)
 
           this.nome = null
 

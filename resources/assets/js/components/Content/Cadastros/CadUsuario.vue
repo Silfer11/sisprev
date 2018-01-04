@@ -120,7 +120,7 @@
           idRPPS: this.idRPPS
           }
 
-          this.$http.post('http://127.0.0.1:8000/api/usuarios/cadastrar', cadastro)
+          this.$http.post('/api/usuarios/cadastrar', cadastro)
           this.$router.go()
         }
       }

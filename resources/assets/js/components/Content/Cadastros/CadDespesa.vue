@@ -110,7 +110,7 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('http://127.0.0.1:8000/api/despesas/cadastrar', cadastro)
+          this.$http.post('/api/despesas/cadastrar', cadastro)
 
           this.descricao = null
           this.valor = null

@@ -76,7 +76,7 @@
 <script>
   export default {
     created (){
-      this.$http.get('http://127.0.0.1:8000/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
+      this.$http.get('/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
     },
     data () {
       return {
@@ -132,7 +132,7 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('http://127.0.0.1:8000/api/receitas/cadastrar', cadastro)
+          this.$http.post('/api/receitas/cadastrar', cadastro)
 
           this.idDescricao = null
           this.origem = null

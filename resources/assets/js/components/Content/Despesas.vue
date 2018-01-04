@@ -154,11 +154,11 @@
     },
     methods: {
       exclude(id){
-        this.$http.post('http://127.0.0.1:8000/api/despesas/excluir/' + id)
+        this.$http.post('/api/despesas/excluir/' + id)
         this.ListarDespesas(this.date)
       },
       edit(item){
-        this.$http.get('http://127.0.0.1:8000/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
+        this.$http.get('/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
 
         this.id = item.id
         this.descricao = item.descricao
@@ -182,7 +182,7 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('http://127.0.0.1:8000/api/despesas/atualizar', cadastro)
+          this.$http.post('/api/despesas/atualizar', cadastro)
 
           this.dialog = false
           this.ListarDespesas(this.date)
@@ -193,7 +193,7 @@
         this.ListarDespesas(this.date)
       },
       ListarDespesas(date){
-        this.$http.get('http://127.0.0.1:8000/api/despesas/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
+        this.$http.get('/api/despesas/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
       }
     }
   }

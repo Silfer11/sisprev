@@ -186,11 +186,11 @@
     },
     methods: {
       exclude(id){
-        this.$http.post('http://127.0.0.1:8000/api/receitas/excluir/' + id)
+        this.$http.post('/api/receitas/excluir/' + id)
         this.ListarReceitas(this.date)
       },
       edit(item){
-        this.$http.get('http://127.0.0.1:8000/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
+        this.$http.get('/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
 
         this.id = item.id
         this.idDescricao = item.idDescricao
@@ -220,7 +220,7 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('http://127.0.0.1:8000/api/receitas/atualizar', cadastro)
+          this.$http.post('/api/receitas/atualizar', cadastro)
 
           this.dialog = false
           this.ListarReceitas(this.date)

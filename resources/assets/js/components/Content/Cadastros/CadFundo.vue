@@ -81,8 +81,8 @@
 //'contContab', 'nome', 'CNPJ', 'segmento', 'indReferencia', 'conta', 'nivelRisco', 'risco'
   export default {
     created (){
-      this.$http.get('http://127.0.0.1:8000/api/fundos/bancos/listar').then((req) => this.listarBancos = req.data)
-      this.$http.get('http://127.0.0.1:8000/api/fundos/enquadramentos/listar').then((req) => this.listarEnquadramentos = req.data)
+      this.$http.get('/api/fundos/bancos/listar').then((req) => this.listarBancos = req.data)
+      this.$http.get('/api/fundos/enquadramentos/listar').then((req) => this.listarEnquadramentos = req.data)
     },
     data () {
       return {
@@ -150,8 +150,8 @@
             idRPPS: this.idRPPS
           }
 
-          this.$http.post('http://127.0.0.1:8000/api/fundos/cadastrar', cadastro).then(
-            (req)=> this.$http.post('http://127.0.0.1:8000/api/fundos/movimentacoes/cadastrar',  {id: req.data} ).then(this.$router.go())
+          this.$http.post('/api/fundos/cadastrar', cadastro).then(
+            (req)=> this.$http.post('/api/fundos/movimentacoes/cadastrar',  {id: req.data} ).then(this.$router.go())
           )
 
           this.contContab = null

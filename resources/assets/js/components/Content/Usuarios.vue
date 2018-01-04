@@ -158,7 +158,7 @@
     },
     methods: {
       exclude(id){
-        this.$http.post('http://127.0.0.1:8000/api/usuarios/excluir/' + id)
+        this.$http.post('/api/usuarios/excluir/' + id)
         this.ListarUsuarios()
       },
       edit(item){
@@ -198,14 +198,14 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('http://127.0.0.1:8000/api/usuarios/atualizar', cadastro)
+          this.$http.post('/api/usuarios/atualizar', cadastro)
 
           this.dialog = false
           this.ListarUsuarios()
         }
       },
       ListarUsuarios(){
-        this.$http.get('http://127.0.0.1:8000/api/usuarios/listar').then((req) => this.items = req.data)
+        this.$http.get('/api/usuarios/listar').then((req) => this.items = req.data)
       }
     }
   }

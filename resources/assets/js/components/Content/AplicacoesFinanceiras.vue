@@ -176,10 +176,10 @@ import CadEnquadramento from "./Cadastros/CadEnquadramento";
           aplicacao: mov.aplicacao,
           final: mov.final,
         }
-        this.$http.post('http://127.0.0.1:8000/api/fundos/movimentacoes/atualizar', atualizar)
+        this.$http.post('/api/fundos/movimentacoes/atualizar', atualizar)
       },
       ListarMovimentacoes(date){
-        this.$http.get('http://127.0.0.1:8000/api/fundos/movimentacoes/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
+        this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
       }
     }
 

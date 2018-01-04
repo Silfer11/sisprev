@@ -39882,7 +39882,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     exclude: function exclude(id) {
-      this.$http.post('http://127.0.0.1:8000/api/usuarios/excluir/' + id);
+      this.$http.post('/api/usuarios/excluir/' + id);
       this.ListarUsuarios();
     },
     edit: function edit(item) {
@@ -39922,7 +39922,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/usuarios/atualizar', cadastro);
+        this.$http.post('/api/usuarios/atualizar', cadastro);
 
         this.dialog = false;
         this.ListarUsuarios();
@@ -39931,7 +39931,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ListarUsuarios: function ListarUsuarios() {
       var _this = this;
 
-      this.$http.get('http://127.0.0.1:8000/api/usuarios/listar').then(function (req) {
+      this.$http.get('/api/usuarios/listar').then(function (req) {
         return _this.items = req.data;
       });
     }
@@ -40117,7 +40117,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           idRPPS: this.idRPPS
         };
 
-        this.$http.post('http://127.0.0.1:8000/api/usuarios/cadastrar', cadastro);
+        this.$http.post('/api/usuarios/cadastrar', cadastro);
         this.$router.go();
       }
     }
@@ -41157,13 +41157,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     exclude: function exclude(id) {
-      this.$http.post('http://127.0.0.1:8000/api/receitas/excluir/' + id);
+      this.$http.post('/api/receitas/excluir/' + id);
       this.ListarReceitas(this.date);
     },
     edit: function edit(item) {
       var _this = this;
 
-      this.$http.get('http://127.0.0.1:8000/api/receitas/descricoes/listar').then(function (req) {
+      this.$http.get('/api/receitas/descricoes/listar').then(function (req) {
         return _this.listarDescricoes = req.data;
       });
 
@@ -41195,7 +41195,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/receitas/atualizar', cadastro);
+        this.$http.post('/api/receitas/atualizar', cadastro);
 
         this.dialog = false;
         this.ListarReceitas(this.date);
@@ -41349,7 +41349,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var _this = this;
 
-    this.$http.get('http://127.0.0.1:8000/api/receitas/descricoes/listar').then(function (req) {
+    this.$http.get('/api/receitas/descricoes/listar').then(function (req) {
       return _this.listarDescricoes = req.data;
     });
   },
@@ -41411,7 +41411,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/receitas/cadastrar', cadastro);
+        this.$http.post('/api/receitas/cadastrar', cadastro);
 
         this.idDescricao = null;
         this.origem = null;
@@ -41899,7 +41899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           descricao: this.descricao,
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/receitas/descricoes/cadastrar', cadastro);
+        this.$http.post('/api/receitas/descricoes/cadastrar', cadastro);
 
         this.descricao = null;
 
@@ -42891,13 +42891,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     exclude: function exclude(id) {
-      this.$http.post('http://127.0.0.1:8000/api/despesas/excluir/' + id);
+      this.$http.post('/api/despesas/excluir/' + id);
       this.ListarDespesas(this.date);
     },
     edit: function edit(item) {
       var _this = this;
 
-      this.$http.get('http://127.0.0.1:8000/api/despesas/categorias/listar').then(function (req) {
+      this.$http.get('/api/despesas/categorias/listar').then(function (req) {
         return _this.listarCategorias = req.data;
       });
 
@@ -42923,7 +42923,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/despesas/atualizar', cadastro);
+        this.$http.post('/api/despesas/atualizar', cadastro);
 
         this.dialog = false;
         this.ListarDespesas(this.date);
@@ -42936,7 +42936,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ListarDespesas: function ListarDespesas(date) {
       var _this2 = this;
 
-      this.$http.get('http://127.0.0.1:8000/api/despesas/listar', { params: { date: date } }).then(function (req) {
+      this.$http.get('/api/despesas/listar', { params: { date: date } }).then(function (req) {
         return _this2.items = req.data;
       });
     }
@@ -43116,7 +43116,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/despesas/cadastrar', cadastro);
+        this.$http.post('/api/despesas/cadastrar', cadastro);
 
         this.descricao = null;
         this.valor = null;
@@ -43540,7 +43540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           categoria: this.categoria,
           idRPPS: this.idRPPS
         };
-        this.$http.post('http://127.0.0.1:8000/api/despesas/categorias/cadastrar', cadastro);
+        this.$http.post('/api/despesas/categorias/cadastrar', cadastro);
 
         this.categoria = null;
 
@@ -44458,12 +44458,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         aplicacao: mov.aplicacao,
         final: mov.final
       };
-      this.$http.post('http://127.0.0.1:8000/api/fundos/movimentacoes/atualizar', atualizar);
+      this.$http.post('/api/fundos/movimentacoes/atualizar', atualizar);
     },
     ListarMovimentacoes: function ListarMovimentacoes(date) {
       var _this = this;
 
-      this.$http.get('http://127.0.0.1:8000/api/fundos/movimentacoes/listar', { params: { date: date } }).then(function (req) {
+      this.$http.get('/api/fundos/movimentacoes/listar', { params: { date: date } }).then(function (req) {
         return _this.items = req.data;
       });
     }
@@ -44610,10 +44610,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var _this = this;
 
-    this.$http.get('http://127.0.0.1:8000/api/fundos/bancos/listar').then(function (req) {
+    this.$http.get('/api/fundos/bancos/listar').then(function (req) {
       return _this.listarBancos = req.data;
     });
-    this.$http.get('http://127.0.0.1:8000/api/fundos/enquadramentos/listar').then(function (req) {
+    this.$http.get('/api/fundos/enquadramentos/listar').then(function (req) {
       return _this.listarEnquadramentos = req.data;
     });
   },
@@ -44689,8 +44689,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           idRPPS: this.idRPPS
         };
 
-        this.$http.post('http://127.0.0.1:8000/api/fundos/cadastrar', cadastro).then(function (req) {
-          return _this2.$http.post('http://127.0.0.1:8000/api/fundos/movimentacoes/cadastrar', { id: req.data }).then(_this2.$router.go());
+        this.$http.post('/api/fundos/cadastrar', cadastro).then(function (req) {
+          return _this2.$http.post('/api/fundos/movimentacoes/cadastrar', { id: req.data }).then(_this2.$router.go());
         });
 
         this.contContab = null;
@@ -45165,7 +45165,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var cadastro = {
           nome: this.nome
         };
-        this.$http.post('http://127.0.0.1:8000/api/fundos/bancos/cadastrar', cadastro);
+        this.$http.post('/api/fundos/bancos/cadastrar', cadastro);
 
         this.nome = null;
 
@@ -45435,7 +45435,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           tipoAtivo: this.tipoAtivo,
           nome: this.nome
         };
-        this.$http.post('http://127.0.0.1:8000/api/fundos/enquadramentos/cadastrar', cadastro);
+        this.$http.post('/api/fundos/enquadramentos/cadastrar', cadastro);
 
         this.tipoAtivo = null;
         this.nome = null;

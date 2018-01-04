@@ -65,7 +65,7 @@
             tipoAtivo: this.tipoAtivo,
             nome: this.nome
           }
-          this.$http.post('http://127.0.0.1:8000/api/fundos/enquadramentos/cadastrar', cadastro)
+          this.$http.post('/api/fundos/enquadramentos/cadastrar', cadastro)
 
           this.tipoAtivo = null
           this.nome = null
