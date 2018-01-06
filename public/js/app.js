@@ -36831,8 +36831,8 @@ var index_esm = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Login__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Login___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Login__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Content_Login__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Content_Login___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Content_Login__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Content_Home__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Content_Home___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Content_Home__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Content_Usuarios__ = __webpack_require__(20);
@@ -39540,7 +39540,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Login/index.vue"
+Component.options.__file = "resources/assets/js/components/Content/Login.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -39550,9 +39550,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26722845", Component.options)
+    hotAPI.createRecord("data-v-7929e00c", Component.options)
   } else {
-    hotAPI.reload("data-v-26722845", Component.options)
+    hotAPI.reload("data-v-7929e00c", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -39587,7 +39587,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-26722845", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7929e00c", module.exports)
   }
 }
 
@@ -39647,6 +39647,8 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
 
 /***/ }),
 /* 19 */
@@ -39656,7 +39658,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v(" home ")])
+  return _c("v-card", [
+    _c("h2", [
+      _vm._v(
+        " Seja bem-vindo ao Sisprev - Charqueadas, Este é um projeto realizado para fins do TCC do TSI IFSUL "
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
