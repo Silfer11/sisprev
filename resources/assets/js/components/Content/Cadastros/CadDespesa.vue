@@ -62,7 +62,7 @@
   export default {
 
     created (){
-      this.$http.get('http://127.0.0.1:8000/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
+      this.$http.get('/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
     },
     data () {
       return {

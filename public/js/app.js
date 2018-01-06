@@ -43070,7 +43070,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var _this = this;
 
-    this.$http.get('http://127.0.0.1:8000/api/despesas/categorias/listar').then(function (req) {
+    this.$http.get('/api/despesas/categorias/listar').then(function (req) {
       return _this.listarCategorias = req.data;
     });
   },
