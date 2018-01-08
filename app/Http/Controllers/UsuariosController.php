@@ -9,6 +9,10 @@ use App\Usuario;
 
 class UsuariosController extends Controller
 {
+  public function logar(Request $request){
+    return \Response::json(Usuario::where('usuario','=', $request->usuario)->where('senha','=', $request->senha)->get());
+  }
+
   public function listar(){
     return \Response::json(Usuario::all(),200);
   }

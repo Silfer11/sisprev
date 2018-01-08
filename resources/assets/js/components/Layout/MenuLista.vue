@@ -11,7 +11,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile to="/Usuarios">
+      <v-list-tile to="/Usuarios" v-if="this.$store.state.Usuario.permAdmin===true">
         <v-list-tile-action>
           <v-icon>group</v-icon>
         </v-list-tile-action>
@@ -21,7 +21,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile to="/Receitas">
+      <v-list-tile to="/Receitas" v-if="this.$store.state.Usuario.permGRec===true">
         <v-list-tile-action>
           <v-icon>attach_money</v-icon>
         </v-list-tile-action>
@@ -31,7 +31,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile to="/Despesas">
+      <v-list-tile to="/Despesas" v-if="this.$store.state.Usuario.permGRec===true">
         <v-list-tile-action>
           <v-icon>money_off</v-icon>
         </v-list-tile-action>
@@ -41,7 +41,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile to="/AplicacoesFinanceiras">
+      <v-list-tile to="/AplicacoesFinanceiras" v-if="this.$store.state.Usuario.permGFin===true">
         <v-list-tile-action>
           <v-icon>trending_up</v-icon>
         </v-list-tile-action>
@@ -51,7 +51,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile to="/Configuracoes">
+      <v-list-tile to="/Configuracoes" v-if="this.$store.state.Usuario.usuario!=='Beneficiário' && this.$store.state.Usuario.usuario!== ''">
         <v-list-tile-action>
           <v-icon>settings</v-icon>
         </v-list-tile-action>

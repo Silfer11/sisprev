@@ -3,14 +3,16 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueResource from 'vue-resource';
-import veevalidate from 'vee-validate';
+import VeeValidate from 'vee-validate';
 
 import router from './router';
-import layout from './components/layout';
+import app from './components/index';
+import store from './vuex/store';
 
 Vue.use( Vuetify );
 Vue.use( VueResource );
-Vue.use( veevalidate );
+Vue.use( VeeValidate );
+
 
 window.Vue = require('vue');
 
@@ -18,8 +20,9 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAt
 
 new Vue({
     el: '#app',
+    store,
     router,
     components:{
-      layout
+      app
     }
 });

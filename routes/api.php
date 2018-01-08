@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Logar
+
+Route::post('/logar/funcionario','UsuariosController@logar');
+
 //usuarios
 
 Route::get('/usuarios/listar','UsuariosController@listar');

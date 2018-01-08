@@ -1,6 +1,5 @@
 <template>
-  <v-app id="inspire" light>
-
+  <div>
     <MenuTopo></MenuTopo>
 
     <v-content>
@@ -14,15 +13,17 @@
     </v-content>
 
     <Rodape></Rodape>
-
-  </v-app>
+  </div>
 </template>
 
 <script>
-  import Rodape from './layout/Rodape';
-  import MenuTopo from './layout/MenuTopo';
+  import Rodape from './Layout/Rodape';
+  import MenuTopo from './Layout/MenuTopo';
 
   export default {
+    data(){
+      return {teste: "1"}
+    },
 
     components:{
       Rodape,
