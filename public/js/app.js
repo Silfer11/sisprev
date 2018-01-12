@@ -39674,8 +39674,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      usuario: 'silfer',
-      senha: 'leofsrs',
+      usuario: '',
+      senha: '',
       cpf: ''
     };
   },
@@ -40822,7 +40822,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -40857,7 +40856,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tmp: '',
       search: '',
       pagination: {},
-      headers: [{ text: 'Usuario', value: 'usuario', align: 'center' }, { text: 'Senha', value: 'senha', align: 'center' }, { text: 'Nome', value: 'nome', align: 'center' }, { text: 'CPF', value: 'cpf', align: 'center' }, { text: 'E-Mail', value: 'email', align: 'center' }, { text: 'Editar', value: 'editar', align: 'center' }, { text: 'Deletar', value: 'deletar', align: 'center' }],
+      headers: [{ text: 'Usuario', value: 'usuario', align: 'center' }, { text: 'Nome', value: 'nome', align: 'center' }, { text: 'CPF', value: 'cpf', align: 'center' }, { text: 'E-Mail', value: 'email', align: 'center' }, { text: 'Editar', value: 'editar', align: 'center' }, { text: 'Deletar', value: 'deletar', align: 'center' }],
       items: [],
       textRules: [function (v) {
         return !!v || 'O campo deve ser preenchido';
@@ -41504,10 +41503,6 @@ var render = function() {
                       [
                         _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(_vm._s(props.item.usuario))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.senha))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [

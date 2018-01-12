@@ -21,9 +21,6 @@
   import MenuTopo from './Layout/MenuTopo';
 
   export default {
-    data(){
-      return {teste: "1"}
-    },
 
     components: {
       Rodape,
