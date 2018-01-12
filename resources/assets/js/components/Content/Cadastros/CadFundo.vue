@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="500px">
-    <v-btn slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Fundo</v-btn>
+    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Fundo</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Cadastrar Fundo</span>
@@ -78,12 +78,7 @@
 </template>
 
 <script>
-//'contContab', 'nome', 'CNPJ', 'segmento', 'indReferencia', 'conta', 'nivelRisco', 'risco'
   export default {
-    created (){
-      this.$http.get('/api/fundos/bancos/listar').then((req) => this.listarBancos = req.data)
-      this.$http.get('/api/fundos/enquadramentos/listar').then((req) => this.listarEnquadramentos = req.data)
-    },
     data () {
       return {
         alert: false,
@@ -151,22 +146,17 @@
           }
 
           this.$http.post('/api/fundos/cadastrar', cadastro).then(
-            (req)=> this.$http.post('/api/fundos/movimentacoes/cadastrar',  {id: req.data} ).then(this.$router.go())
+            (req)=> this.$http.post('/api/fundos/movimentacoes/cadastrar',  {id: req.data} ).then(function(){
+              this.$emit('Recarregar')
+              this.fechar()
+            })
           )
 
-          this.contContab = null
-          this.nome = null
-          this.cnpj = null
-          this.segmento = null
-          this.indReferencia = null
-          this.conta = null
-          this.nivelRisco = null
-          this.risco = null
-          this.idBanco = null
-          this.idEnq = null
-
-          this.dialog = false
         }
+      },
+      atualizarSelect(){
+        this.$http.get('/api/fundos/bancos/listar').then((req) => this.listarBancos = req.data)
+        this.$http.get('/api/fundos/enquadramentos/listar').then((req) => this.listarEnquadramentos = req.data)
       }
     }
   }

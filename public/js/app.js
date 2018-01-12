@@ -36869,6 +36869,7 @@ var routes = [{
 }, {
   path: '/',
   component: __WEBPACK_IMPORTED_MODULE_3__components_Layout___default.a,
+  meta: { requiresAuth: true },
   children: [{
     path: '/',
     redirect: '/Home'
@@ -36904,17 +36905,31 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   routes: routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   if(router.app.$store !== undefined){
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//       if (router.app.$store.state.Usuario.cpf !== "") {
-//         next()
-//       }
-//     }
-//   }
-//   next('Login')
-// });
-
+router.beforeEach(function (to, from, next) {
+  if (router.app.$store !== undefined) {
+    if (to.matched.some(function (record) {
+      return record.meta.requiresAuth;
+    })) {
+      if (to.path !== "/Login") {
+        if (router.app.$store.state.Usuario.cpf !== "") {
+          next();
+        } else {
+          next("Login");
+        }
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  } else {
+    if (to.path !== '/Login') {
+      next('Login');
+    } else {
+      next();
+    }
+  }
+});
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
@@ -40913,6 +40928,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return _this.items = req.data;
       });
     }
+  },
+  events: {
+    Recarregar: function Recarregar() {
+      ListarUsuarios();
+    }
   }
 });
 
@@ -41067,16 +41087,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     fechar: function fechar() {
-      this.usuario = null;
-      this.senha = null;
-      this.nome = null;
-      this.cpf = null;
-      this.email = null;
+      this.usuario = '';
+      this.senha = '';
+      this.nome = '';
+      this.cpf = '';
+      this.email = '';
 
-      this.permAdmin = null;
-      this.permGRec = null;
-      this.permGFin = null;
-      this.permLogs = null;
+      this.permAdmin = false;
+      this.permGRec = false;
+      this.permGFin = false;
+      this.permLogs = false;
 
       this.dialog = false;
     },
@@ -41095,8 +41115,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           idRPPS: this.idRPPS
         };
 
-        this.$http.post('/api/usuarios/cadastrar', cadastro);
-        this.$router.go();
+        this.$http.post('/api/usuarios/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
     }
   }
@@ -41424,7 +41446,12 @@ var render = function() {
     "v-tabs",
     { attrs: { fixed: "", centered: "" } },
     [
-      _c("v-tabs-bar", { staticClass: "grey" }, [_c("CadUsuario")], 1),
+      _c(
+        "v-tabs-bar",
+        { staticClass: "grey" },
+        [_c("CadUsuario", { on: { Recarregar: _vm.ListarUsuarios } })],
+        1
+      ),
       _vm._v(" "),
       _c(
         "v-card",
@@ -42098,7 +42125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     CadReceitaDescricao: __WEBPACK_IMPORTED_MODULE_1__Cadastros_CadReceitaDescricao___default.a
   },
   created: function created() {
-    this.ListarReceitas(this.date);
+    this.ListarReceitas();
   },
   data: function data() {
     return {
@@ -42136,7 +42163,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     exclude: function exclude(id) {
       this.$http.post('/api/receitas/excluir/' + id);
-      this.ListarReceitas(this.date);
+      this.ListarReceitas();
     },
     edit: function edit(item) {
       var _this = this;
@@ -42176,17 +42203,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$http.post('/api/receitas/atualizar', cadastro);
 
         this.dialog = false;
-        this.ListarReceitas(this.date);
+        this.ListarReceitas();
       }
     },
     TrocaData: function TrocaData() {
       this.menu_data = false;
-      this.ListarReceitas(this.date);
+      this.ListarReceitas();
     },
-    ListarReceitas: function ListarReceitas(date) {
+    ListarReceitas: function ListarReceitas() {
       var _this2 = this;
 
-      this.$http.get('/api/receitas/listar', { params: { date: date } }).then(function (req) {
+      this.$http.get('/api/receitas/listar', { params: { date: this.date } }).then(function (req) {
         return _this2.items = req.data;
       });
     }
@@ -42324,13 +42351,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    var _this = this;
-
-    this.$http.get('/api/receitas/descricoes/listar').then(function (req) {
-      return _this.listarDescricoes = req.data;
-    });
-  },
   data: function data() {
     return {
       alert: false,
@@ -42389,19 +42409,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/receitas/cadastrar', cadastro);
-
-        this.idDescricao = null;
-        this.origem = null;
-        this.aliq = null;
-        this.parcela = null;
-        this.valDevido = null;
-        this.data = null;
-        this.observacoes = null;
-
-        this.dialog = false;
-        this.$router.go();
+        this.$http.post('/api/receitas/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
+    },
+    atualizarSelect: function atualizarSelect() {
+      var _this = this;
+
+      this.$http.get('/api/receitas/descricoes/listar').then(function (req) {
+        return _this.listarDescricoes = req.data;
+      });
     }
   }
 });
@@ -42429,7 +42448,11 @@ var render = function() {
     [
       _c(
         "v-btn",
-        { attrs: { slot: "activator" }, slot: "activator" },
+        {
+          attrs: { slot: "activator" },
+          on: { click: _vm.atualizarSelect },
+          slot: "activator"
+        },
         [_c("v-icon", [_vm._v("playlist_add")]), _vm._v("Cadastrar Receita")],
         1
       ),
@@ -42877,12 +42900,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           descricao: this.descricao,
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/receitas/descricoes/cadastrar', cadastro);
-
-        this.descricao = null;
-
-        this.dialog = false;
-        this.$router.go();
+        this.$http.post('/api/receitas/descricoes/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
     }
   }
@@ -43042,7 +43063,11 @@ var render = function() {
       _c(
         "v-tabs-bar",
         { staticClass: "grey" },
-        [_c("CadReceita"), _vm._v(" "), _c("CadReceitaDescricao")],
+        [
+          _c("CadReceita", { on: { Recarregar: _vm.ListarReceitas } }),
+          _vm._v(" "),
+          _c("CadReceitaDescricao", { on: { Recarregar: _vm.ListarReceitas } })
+        ],
         1
       ),
       _vm._v(" "),
@@ -43835,7 +43860,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     CadDespesaCategoria: __WEBPACK_IMPORTED_MODULE_1__Cadastros_CadDespesaCategoria___default.a
   },
   created: function created() {
-    this.ListarDespesas(this.date);
+    this.ListarDespesas();
   },
   data: function data() {
     return {
@@ -43870,7 +43895,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     exclude: function exclude(id) {
       this.$http.post('/api/despesas/excluir/' + id);
-      this.ListarDespesas(this.date);
+      this.ListarDespesas();
     },
     edit: function edit(item) {
       var _this = this;
@@ -43904,17 +43929,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$http.post('/api/despesas/atualizar', cadastro);
 
         this.dialog = false;
-        this.ListarDespesas(this.date);
+        this.ListarDespesas();
       }
     },
     TrocaData: function TrocaData() {
       this.menu_data = false;
-      this.ListarDespesas(this.date);
+      this.ListarDespesas();
     },
-    ListarDespesas: function ListarDespesas(date) {
+    ListarDespesas: function ListarDespesas() {
       var _this2 = this;
 
-      this.$http.get('/api/despesas/listar', { params: { date: date } }).then(function (req) {
+      this.$http.get('/api/despesas/listar', { params: { date: this.date } }).then(function (req) {
         return _this2.items = req.data;
       });
     }
@@ -44035,15 +44060,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-//'id', 'descricao', 'valor', 'data', 'idCategoria', 'idRPPS'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    var _this = this;
-
-    this.$http.get('/api/despesas/categorias/listar').then(function (req) {
-      return _this.listarCategorias = req.data;
-    });
-  },
   data: function data() {
     return {
       alert: false,
@@ -44094,16 +44111,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/despesas/cadastrar', cadastro);
-
-        this.descricao = null;
-        this.valor = null;
-        this.data = null;
-        this.idCategoria = null;
-
-        this.dialog = false;
-        this.$router.go();
+        this.$http.post('/api/despesas/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
+    },
+    atualizarSelect: function atualizarSelect() {
+      var _this = this;
+
+      this.$http.get('/api/despesas/categorias/listar').then(function (req) {
+        return _this.listarCategorias = req.data;
+      });
     }
   }
 });
@@ -44131,7 +44150,11 @@ var render = function() {
     [
       _c(
         "v-btn",
-        { attrs: { slot: "activator" }, slot: "activator" },
+        {
+          attrs: { slot: "activator" },
+          on: { click: _vm.atualizarSelect },
+          slot: "activator"
+        },
         [_c("v-icon", [_vm._v("playlist_add")]), _vm._v("Cadastrar Despesa")],
         1
       ),
@@ -44518,12 +44541,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           categoria: this.categoria,
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/despesas/categorias/cadastrar', cadastro);
-
-        this.categoria = null;
-
-        this.dialog = false;
-        this.$router.go();
+        this.$http.post('/api/despesas/categorias/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
     }
   }
@@ -44683,7 +44704,11 @@ var render = function() {
       _c(
         "v-tabs-bar",
         { staticClass: "grey" },
-        [_c("CadDespesa"), _vm._v(" "), _c("CadDespesaCategoria")],
+        [
+          _c("CadDespesa", { on: { Recarregar: _vm.ListarDespesas } }),
+          _vm._v(" "),
+          _c("CadDespesaCategoria", { on: { Recarregar: _vm.ListarDespesas } })
+        ],
         1
       ),
       _vm._v(" "),
@@ -45406,7 +45431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   created: function created() {
-    this.ListarMovimentacoes(this.date);
+    this.ListarMovimentacoes();
   },
   data: function data() {
     return {
@@ -45426,7 +45451,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     TrocaData: function TrocaData() {
       this.menu_data = false;
-      this.ListarMovimentacoes(this.date);
+      this.ListarMovimentacoes();
     },
     EditaMovimentacao: function EditaMovimentacao(mov) {
       var atualizar = {
@@ -45438,10 +45463,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       this.$http.post('/api/fundos/movimentacoes/atualizar', atualizar);
     },
-    ListarMovimentacoes: function ListarMovimentacoes(date) {
+    ListarMovimentacoes: function ListarMovimentacoes() {
       var _this = this;
 
-      this.$http.get('/api/fundos/movimentacoes/listar', { params: { date: date } }).then(function (req) {
+      this.$http.get('/api/fundos/movimentacoes/listar', { params: { date: this.date } }).then(function (req) {
         return _this.items = req.data;
       });
     }
@@ -45583,18 +45608,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-//'contContab', 'nome', 'CNPJ', 'segmento', 'indReferencia', 'conta', 'nivelRisco', 'risco'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    var _this = this;
-
-    this.$http.get('/api/fundos/bancos/listar').then(function (req) {
-      return _this.listarBancos = req.data;
-    });
-    this.$http.get('/api/fundos/enquadramentos/listar').then(function (req) {
-      return _this.listarEnquadramentos = req.data;
-    });
-  },
   data: function data() {
     return {
       alert: false,
@@ -45649,7 +45663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.dialog = false;
     },
     cadastrar: function cadastrar() {
-      var _this2 = this;
+      var _this = this;
 
       if (this.$refs.form.validate()) {
         var cadastro = {
@@ -45668,22 +45682,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
 
         this.$http.post('/api/fundos/cadastrar', cadastro).then(function (req) {
-          return _this2.$http.post('/api/fundos/movimentacoes/cadastrar', { id: req.data }).then(_this2.$router.go());
+          return _this.$http.post('/api/fundos/movimentacoes/cadastrar', { id: req.data }).then(function () {
+            this.$emit('Recarregar');
+            this.fechar();
+          });
         });
-
-        this.contContab = null;
-        this.nome = null;
-        this.cnpj = null;
-        this.segmento = null;
-        this.indReferencia = null;
-        this.conta = null;
-        this.nivelRisco = null;
-        this.risco = null;
-        this.idBanco = null;
-        this.idEnq = null;
-
-        this.dialog = false;
       }
+    },
+    atualizarSelect: function atualizarSelect() {
+      var _this2 = this;
+
+      this.$http.get('/api/fundos/bancos/listar').then(function (req) {
+        return _this2.listarBancos = req.data;
+      });
+      this.$http.get('/api/fundos/enquadramentos/listar').then(function (req) {
+        return _this2.listarEnquadramentos = req.data;
+      });
     }
   }
 });
@@ -45711,7 +45725,11 @@ var render = function() {
     [
       _c(
         "v-btn",
-        { attrs: { slot: "activator" }, slot: "activator" },
+        {
+          attrs: { slot: "activator" },
+          on: { click: _vm.atualizarSelect },
+          slot: "activator"
+        },
         [_c("v-icon", [_vm._v("playlist_add")]), _vm._v("Cadastrar Fundo")],
         1
       ),
@@ -46143,12 +46161,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var cadastro = {
           nome: this.nome
         };
-        this.$http.post('/api/fundos/bancos/cadastrar', cadastro);
-
-        this.nome = null;
-
-        this.dialog = false;
-        this.$router.go();
+        this.$http.post('/api/fundos/bancos/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
     }
   }
@@ -46413,13 +46429,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           tipoAtivo: this.tipoAtivo,
           nome: this.nome
         };
-        this.$http.post('/api/fundos/enquadramentos/cadastrar', cadastro);
-
-        this.tipoAtivo = null;
-        this.nome = null;
-
-        this.dialog = false;
-        this.$router.go();
+        this.$http.post('/api/fundos/enquadramentos/cadastrar', cadastro).then(function () {
+          this.$emit('Recarregar');
+          this.fechar();
+        });
       }
     }
   }
@@ -46595,11 +46608,13 @@ var render = function() {
         "v-tabs-bar",
         { staticClass: "grey" },
         [
-          _c("CadFundo"),
+          _c("CadFundo", { on: { Recarregar: _vm.ListarMovimentacoes } }),
           _vm._v(" "),
-          _c("CadBanco"),
+          _c("CadBanco", { on: { Recarregar: _vm.ListarMovimentacoes } }),
           _vm._v(" "),
-          _c("CadEnquadramento")
+          _c("CadEnquadramento", {
+            on: { ListarMovimentacoes: _vm.ListarMovimentacoes }
+          })
         ],
         1
       ),

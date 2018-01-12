@@ -21,6 +21,7 @@ const routes = [
   {
     path: '/',
     component: Layout,
+    meta: { requiresAuth: true },
     children:[
       {
         path: '/',
@@ -64,16 +65,28 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if(router.app.$store !== undefined){
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//       if (router.app.$store.state.Usuario.cpf !== "") {
-//         next()
-//       }
-//     }
-//   }
-//   next('Login')
-// });
-
+router.beforeEach((to, from, next) => {
+  if(router.app.$store !== undefined){
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if(to.path!=="/Login"){
+        if (router.app.$store.state.Usuario.cpf !== "") {
+          next()
+        }else{
+          next("Login")
+        }
+      }else{
+        next()
+      }
+    }else{
+      next()
+    }
+  }else{
+    if (to.path !== '/Login') {
+      next('Login');
+    } else {
+      next();
+    }
+  }
+});
 
 export default router

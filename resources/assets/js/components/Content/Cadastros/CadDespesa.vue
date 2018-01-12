@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="500px">
-    <v-btn slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Despesa</v-btn>
+    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Despesa</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Cadastrar Despesa</span>
@@ -58,12 +58,7 @@
 </template>
 
 <script>
-//'id', 'descricao', 'valor', 'data', 'idCategoria', 'idRPPS'
   export default {
-
-    created (){
-      this.$http.get('/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
-    },
     data () {
       return {
         alert: false,
@@ -110,16 +105,14 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('/api/despesas/cadastrar', cadastro)
-
-          this.descricao = null
-          this.valor = null
-          this.data = null
-          this.idCategoria = null
-
-          this.dialog = false
-          this.$router.go()
+          this.$http.post('/api/despesas/cadastrar', cadastro).then(function(){
+            this.$emit('Recarregar')
+            this.fechar()
+          })
         }
+      },
+      atualizarSelect(){
+        this.$http.get('/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
       }
     }
   }

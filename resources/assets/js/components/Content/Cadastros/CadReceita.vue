@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="500px">
-    <v-btn slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Receita</v-btn>
+  <v-dialog v-model="dialog"persistent max-width="500px">
+    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Receita</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Cadastrar Receita</span>
@@ -75,9 +75,6 @@
 
 <script>
   export default {
-    created (){
-      this.$http.get('/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
-    },
     data () {
       return {
         alert: false,
@@ -132,19 +129,14 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('/api/receitas/cadastrar', cadastro)
-
-          this.idDescricao = null
-          this.origem = null
-          this.aliq = null
-          this.parcela = null
-          this.valDevido = null
-          this.data = null
-          this.observacoes = null
-
-          this.dialog = false
-          this.$router.go()
+          this.$http.post('/api/receitas/cadastrar', cadastro).then(function(){
+            this.$emit('Recarregar')
+            this.fechar()
+          })
         }
+      },
+      atualizarSelect(){
+        this.$http.get('/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
       }
     }
   }

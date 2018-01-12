@@ -25,7 +25,7 @@
       return {teste: "1"}
     },
 
-    components:{
+    components: {
       Rodape,
       MenuTopo
     }

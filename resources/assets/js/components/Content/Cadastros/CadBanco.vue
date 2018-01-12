@@ -59,12 +59,10 @@
           var cadastro = {
             nome: this.nome
           }
-          this.$http.post('/api/fundos/bancos/cadastrar', cadastro)
-
-          this.nome = null
-
-          this.dialog = false
-          this.$router.go()
+          this.$http.post('/api/fundos/bancos/cadastrar', cadastro).then(function(){
+            this.$emit('Recarregar')
+            this.fechar()
+          })
         }
       }
     }

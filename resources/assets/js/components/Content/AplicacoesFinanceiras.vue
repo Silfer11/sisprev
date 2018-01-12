@@ -1,9 +1,9 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <CadFundo></CadFundo>
-        <CadBanco></CadBanco>
-        <CadEnquadramento></CadEnquadramento>
+        <CadFundo v-on:Recarregar="ListarMovimentacoes"></CadFundo>
+        <CadBanco v-on:Recarregar="ListarMovimentacoes"></CadBanco>
+        <CadEnquadramento v-on:ListarMovimentacoes="ListarMovimentacoes"></CadEnquadramento>
     </v-tabs-bar>
     <v-card>
       <v-card-title>
@@ -140,7 +140,7 @@ import CadEnquadramento from "./Cadastros/CadEnquadramento";
     },
 
     created (){
-      this.ListarMovimentacoes(this.date)
+      this.ListarMovimentacoes()
     },
 
     data () {
@@ -166,7 +166,7 @@ import CadEnquadramento from "./Cadastros/CadEnquadramento";
     methods: {
       TrocaData(){
         this.menu_data = false
-        this.ListarMovimentacoes(this.date)
+        this.ListarMovimentacoes()
       },
       EditaMovimentacao(mov){
         var atualizar = {
@@ -178,8 +178,8 @@ import CadEnquadramento from "./Cadastros/CadEnquadramento";
         }
         this.$http.post('/api/fundos/movimentacoes/atualizar', atualizar)
       },
-      ListarMovimentacoes(date){
-        this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
+      ListarMovimentacoes(){
+        this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       }
     }
 

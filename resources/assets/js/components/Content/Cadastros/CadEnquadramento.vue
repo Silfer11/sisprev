@@ -65,13 +65,10 @@
             tipoAtivo: this.tipoAtivo,
             nome: this.nome
           }
-          this.$http.post('/api/fundos/enquadramentos/cadastrar', cadastro)
-
-          this.tipoAtivo = null
-          this.nome = null
-
-          this.dialog = false
-          this.$router.go()
+          this.$http.post('/api/fundos/enquadramentos/cadastrar', cadastro).then(function(){
+            this.$emit('Recarregar')
+            this.fechar()
+          })
         }
       }
     }

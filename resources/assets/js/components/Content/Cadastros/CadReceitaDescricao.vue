@@ -61,12 +61,10 @@
             descricao: this.descricao,
             idRPPS: this.idRPPS
           }
-          this.$http.post('/api/receitas/descricoes/cadastrar', cadastro)
-
-          this.descricao = null
-
-          this.dialog = false
-          this.$router.go()
+          this.$http.post('/api/receitas/descricoes/cadastrar', cadastro).then(function(){
+            this.$emit('Recarregar')
+            this.fechar()
+          })
         }
       }
     }

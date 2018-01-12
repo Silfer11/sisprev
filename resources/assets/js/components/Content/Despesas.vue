@@ -1,8 +1,8 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <CadDespesa></CadDespesa>
-        <CadDespesaCategoria></CadDespesaCategoria>
+        <CadDespesa v-on:Recarregar="ListarDespesas"></CadDespesa>
+        <CadDespesaCategoria v-on:Recarregar="ListarDespesas"></CadDespesaCategoria>
     </v-tabs-bar>
 
     <v-card>
@@ -116,7 +116,7 @@
       CadDespesaCategoria
     },
     created (){
-      this.ListarDespesas(this.date)
+      this.ListarDespesas()
     },
     data () {
       return {
@@ -155,7 +155,7 @@
     methods: {
       exclude(id){
         this.$http.post('/api/despesas/excluir/' + id)
-        this.ListarDespesas(this.date)
+        this.ListarDespesas()
       },
       edit(item){
         this.$http.get('/api/despesas/categorias/listar').then((req) => this.listarCategorias = req.data)
@@ -185,15 +185,15 @@
           this.$http.post('/api/despesas/atualizar', cadastro)
 
           this.dialog = false
-          this.ListarDespesas(this.date)
+          this.ListarDespesas()
         }
       },
       TrocaData(){
         this.menu_data = false
-        this.ListarDespesas(this.date)
+        this.ListarDespesas()
       },
-      ListarDespesas(date){
-        this.$http.get('/api/despesas/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
+      ListarDespesas(){
+        this.$http.get('/api/despesas/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       }
     }
   }

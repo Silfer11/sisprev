@@ -91,16 +91,16 @@
     },
     methods: {
       fechar(){
-        this.usuario = null
-        this.senha = null
-        this.nome = null
-        this.cpf = null
-        this.email = null
+        this.usuario = ''
+        this.senha = ''
+        this.nome = ''
+        this.cpf = ''
+        this.email = ''
 
-        this.permAdmin = null
-        this.permGRec = null
-        this.permGFin = null
-        this.permLogs = null
+        this.permAdmin = false
+        this.permGRec = false
+        this.permGFin = false
+        this.permLogs = false
 
 
         this.dialog = false
@@ -120,8 +120,10 @@
           idRPPS: this.idRPPS
           }
 
-          this.$http.post('/api/usuarios/cadastrar', cadastro)
-          this.$router.go()
+          this.$http.post('/api/usuarios/cadastrar', cadastro).then(function(){
+            this.$emit('Recarregar')
+            this.fechar()
+          })
         }
       }
     }

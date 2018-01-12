@@ -1,8 +1,8 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <CadReceita></CadReceita>
-        <CadReceitaDescricao></CadReceitaDescricao>
+        <CadReceita v-on:Recarregar="ListarReceitas"></CadReceita>
+        <CadReceitaDescricao v-on:Recarregar="ListarReceitas"></CadReceitaDescricao>
     </v-tabs-bar>
 
     <v-card>
@@ -143,7 +143,7 @@
       CadReceitaDescricao
     },
     created (){
-      this.ListarReceitas(this.date)
+      this.ListarReceitas()
     },
     data () {
       return {
@@ -187,7 +187,7 @@
     methods: {
       exclude(id){
         this.$http.post('/api/receitas/excluir/' + id)
-        this.ListarReceitas(this.date)
+        this.ListarReceitas()
       },
       edit(item){
         this.$http.get('/api/receitas/descricoes/listar').then((req) => this.listarDescricoes = req.data)
@@ -223,15 +223,15 @@
           this.$http.post('/api/receitas/atualizar', cadastro)
 
           this.dialog = false
-          this.ListarReceitas(this.date)
+          this.ListarReceitas()
         }
       },
       TrocaData(){
         this.menu_data = false
-        this.ListarReceitas(this.date)
+        this.ListarReceitas()
       },
-      ListarReceitas(date){
-        this.$http.get('/api/receitas/listar', {params:  {date: date}} ).then((req) => this.items = req.data)
+      ListarReceitas(){
+        this.$http.get('/api/receitas/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       }
     }
   }

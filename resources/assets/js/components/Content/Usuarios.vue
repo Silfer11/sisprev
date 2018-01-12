@@ -1,7 +1,7 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <CadUsuario></CadUsuario>
+        <CadUsuario v-on:Recarregar="ListarUsuarios"></CadUsuario>
     </v-tabs-bar>
     <v-card>
       <v-card-title>
@@ -206,6 +206,11 @@
       },
       ListarUsuarios(){
         this.$http.get('/api/usuarios/listar').then((req) => this.items = req.data)
+      }
+    },
+    events: {
+      Recarregar: function() {
+        ListarUsuarios()
       }
     }
   }
