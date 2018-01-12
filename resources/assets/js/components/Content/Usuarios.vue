@@ -19,7 +19,6 @@
         <template slot="items" scope="props">
           <tr @click="props.expanded = !props.expanded">
             <td class="text-xs-center">{{ props.item.usuario }}</td>
-            <td class="text-xs-center">{{ props.item.senha }}</td>
             <td class="text-xs-center">{{ props.item.nome }}</td>
             <td class="text-xs-center">{{ props.item.cpf }}</td>
             <td class="text-xs-center">{{ props.item.email }}</td>
@@ -138,7 +137,6 @@
         pagination: {},
         headers: [
           { text: 'Usuario', value: 'usuario', align: 'center' },
-          { text: 'Senha', value: 'senha', align: 'center' },
           { text: 'Nome', value: 'nome', align: 'center' },
           { text: 'CPF', value: 'cpf', align: 'center' },
           { text: 'E-Mail', value: 'email', align: 'center' },

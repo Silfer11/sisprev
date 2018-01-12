@@ -55,8 +55,8 @@
   export default{
     data () {
       return {
-        usuario: 'silfer',
-        senha: 'leofsrs',
+        usuario: '',
+        senha: '',
         cpf: ''
       }
     },
