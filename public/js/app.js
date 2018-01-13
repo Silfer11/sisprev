@@ -40022,10 +40022,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return { teste: "1" };
-  },
-
 
   components: {
     Rodape: __WEBPACK_IMPORTED_MODULE_0__Layout_Rodape___default.a,
