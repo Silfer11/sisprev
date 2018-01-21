@@ -16,10 +16,10 @@ class CreateMovimentacoesTable extends Migration
         Schema::create('movimentacoes', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->float('inicial', 8, 2)->nullable();
-            $table->float('resgate', 8, 2)->nullable();
-            $table->float('aplicacao', 8, 2)->nullable();
-            $table->float('final', 8, 2)->nullable();
+            $table->float('inicial', 53, 3)->nullable();
+            $table->float('resgate', 53, 3)->nullable();
+            $table->float('aplicacao', 53, 3)->nullable();
+            $table->float('final', 53, 3)->nullable();
 
             $table->date('data');
 

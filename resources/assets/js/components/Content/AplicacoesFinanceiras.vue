@@ -177,6 +177,7 @@ import CadEnquadramento from "./Cadastros/CadEnquadramento";
           final: mov.final,
         }
         this.$http.post('/api/fundos/movimentacoes/atualizar', atualizar)
+        ListarMovimentacoes()
       },
       ListarMovimentacoes(){
         this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)

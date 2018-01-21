@@ -17,7 +17,7 @@ class CreateDespesasTable extends Migration
             $table->increments('id');
 
             $table->string('descricao', 50);
-            $table->float('valor', 8, 2);
+            $table->float('valor', 53, 3);
             $table->date('data');
 
             $table->integer('idCategoria')->unsigned();

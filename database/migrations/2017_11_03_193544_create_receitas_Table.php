@@ -20,9 +20,9 @@ class CreateReceitasTable extends Migration
             $table->foreign('idDescricao')->references('id')->on('receitasDescricoes')->onDelete('cascade');
 
             $table->string('origem', 50);
-            $table->float('aliq', 8, 2)->nullable();
+            $table->float('aliq', 53, 3)->nullable();
             $table->integer('parcela')->nullable();
-            $table->float('valDevido', 8, 2);
+            $table->float('valDevido', 53, 3);
             $table->date('data');
             $table->string('observacoes', 50)->nullable();
 

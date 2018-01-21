@@ -18,7 +18,7 @@ class CreateFundosTable extends Migration
 
             $table->integer('contContab');
             $table->string('nome', 50);
-            $table->integer('cnpj');
+            $table->string('cnpj', 14);
             $table->string('segmento', 50);
             $table->string('indReferencia', 50);
             $table->integer('conta');
