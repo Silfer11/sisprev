@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <v-parallax src="https://images7.alphacoders.com/458/458787.jpg" height="1000">
+    <v-app style="background-image: url(storage/wallpaper_login.jpg); background-repeat: round">
       <v-layout align-center justify-center>
         <v-card>
           <v-tabs grow icons>
@@ -47,8 +46,7 @@
 
         </v-card>
       </v-layout>
-    </v-parallax>
-  </div>
+    </v-app>
 </template>
 
 <script>

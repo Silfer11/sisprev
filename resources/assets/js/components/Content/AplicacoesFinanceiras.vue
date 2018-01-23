@@ -4,6 +4,7 @@
         <CadFundo v-on:Recarregar="ListarMovimentacoes"></CadFundo>
         <CadBanco v-on:Recarregar="ListarMovimentacoes"></CadBanco>
         <CadEnquadramento v-on:ListarMovimentacoes="ListarMovimentacoes"></CadEnquadramento>
+        <CadMov v-on:Recarregar="ListarMovimentacoes"></CadMov>
     </v-tabs-bar>
     <v-card>
       <v-card-title>
@@ -131,12 +132,14 @@
 import CadFundo from "./Cadastros/CadFundo";
 import CadBanco from "./Cadastros/CadBanco";
 import CadEnquadramento from "./Cadastros/CadEnquadramento";
+import CadMov from "./Cadastros/CadMov";
 
   export default {
     components:{
       CadFundo,
       CadBanco,
-      CadEnquadramento
+      CadEnquadramento,
+      CadMov
     },
 
     created (){

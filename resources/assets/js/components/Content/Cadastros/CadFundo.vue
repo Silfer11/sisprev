@@ -23,7 +23,14 @@
                 </v-flex>
 
                 <v-flex xs12 sm6>
-                  <v-text-field label="Segmento" v-model="segmento" :counter="50" required></v-text-field>
+                  <v-select
+                    label="Banco"
+                    required
+                    v-model="idBanco"
+                    :items="listarBancos"
+                    item-text="nome"
+                    item-value="id"
+                  ></v-select>
                 </v-flex>
 
                 <v-flex xs12 sm6>
@@ -44,11 +51,11 @@
 
                 <v-flex xs12 sm6>
                   <v-select
-                    label="Banco"
+                    label="Segmento"
                     required
-                    v-model="idBanco"
-                    :items="listarBancos"
-                    item-text="nome"
+                    v-model="idEnq"
+                    :items="listarEnquadramentos"
+                    item-text="tipoAtivo"
                     item-value="id"
                   ></v-select>
                 </v-flex>
@@ -59,10 +66,11 @@
                     required
                     v-model="idEnq"
                     :items="listarEnquadramentos"
-                    item-text="tipoAtivo"
+                    item-text="nome"
                     item-value="id"
                   ></v-select>
                 </v-flex>
+
               </v-layout>
             </v-form>
           </v-container>
