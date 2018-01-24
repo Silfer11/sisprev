@@ -16,12 +16,11 @@ class CreateFundosTable extends Migration
         Schema::create('fundos', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('contContab');
+            $table->string('contContab', 100);
             $table->string('nome', 50);
             $table->string('cnpj', 14);
-            $table->string('segmento', 50);
             $table->string('indReferencia', 50);
-            $table->integer('conta');
+            $table->string('conta', 100);
             $table->string('nivelRisco', 50);
             $table->string('risco', 50);
 

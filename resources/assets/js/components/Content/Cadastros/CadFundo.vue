@@ -95,7 +95,6 @@
         contContab: null,
         nome: null,
         cnpj: null,
-        segmento: null,
         indReferencia: null,
         conta: null,
         nivelRisco: null,
@@ -126,7 +125,6 @@
         this.contContab = null
         this.nome = null
         this.cnpj = null
-        this.segmento = null
         this.indReferencia = null
         this.conta = null
         this.nivelRisco = null
@@ -142,7 +140,6 @@
             contContab: this.contContab,
             nome: this.nome,
             cnpj: this.cnpj,
-            segmento: this.segmento,
             indReferencia: this.indReferencia,
             conta: this.conta,
             nivelRisco: this.nivelRisco,

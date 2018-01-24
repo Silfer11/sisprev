@@ -45,8 +45,7 @@
               <v-btn>
                 <v-edit-dialog lazy>
 
-                  <span v-if="props.item.inicial">R$ {{ props.item.inicial }}</span>
-                  <span v-else> - </span>
+                  R$ {{ props.item.inicial }}
 
                   <v-text-field
                     slot="input"
@@ -60,50 +59,15 @@
               </v-btn>
             </td>
 
-            <td class="text-xs-center">
-              <v-btn>
-                <v-edit-dialog lazy>
+            <td class="text-xs-center">R$ {{ props.item.resgate }}</td>
 
-                  <span v-if="props.item.resgate">R$ {{ props.item.resgate }}</span>
-                  <span v-else> - </span>
-
-                  <v-text-field
-                    slot="input"
-                    label="Resgate"
-                    prefix="R$"
-                    v-model="props.item.resgate"
-                    single-line
-                    @change="EditaMovimentacao(props.item)"
-                  ></v-text-field>
-                </v-edit-dialog>
-              </v-btn>
-            </td>
+            <td class="text-xs-center">R$ {{ props.item.aplicacao }}</td>
 
             <td class="text-xs-center">
               <v-btn>
                 <v-edit-dialog lazy>
 
-                  <span v-if="props.item.aplicacao">R$ {{ props.item.aplicacao }}</span>
-                  <span v-else> - </span>
-
-                  <v-text-field
-                    slot="input"
-                    label="Aplicação"
-                    prefix="R$"
-                    v-model="props.item.aplicacao"
-                    single-line
-                    @change="EditaMovimentacao(props.item)"
-                  ></v-text-field>
-                </v-edit-dialog>
-              </v-btn>
-            </td>
-
-            <td class="text-xs-center">
-              <v-btn>
-                <v-edit-dialog lazy>
-
-                  <span v-if="props.item.final">R$ {{ props.item.final }}</span>
-                  <span v-else> - </span>
+                  R$ {{ props.item.final }}
 
                   <v-text-field
                     slot="input"
@@ -115,6 +79,13 @@
                   ></v-text-field>
                 </v-edit-dialog>
               </v-btn>
+            </td>
+
+            <td class="text-xs-center">
+
+              <span v-if="props.item.final != 0">R$ {{ props.item.final }}</span>
+              <span v-else>R$ {{ CalculaSaldoAtual(props.item) }}</span>
+
             </td>
 
           </tr>
@@ -159,7 +130,8 @@ import CadMov from "./Cadastros/CadMov";
           { text: 'Saldo Inicial', value: 'saldoInicial', align: 'center' },
           { text: 'Resgate', value: 'resgate', align: 'center' },
           { text: 'Aplicação', value: 'aplicacao', align: 'center' },
-          { text: 'Saldo Final', value: 'saldoFinal', align: 'center' }
+          { text: 'Saldo Final do dia', value: 'saldoFinal', align: 'center' },
+          { text: 'Saldo atual', value: 'saldoAtual', align: 'center' }
         ],
         items: [],
         menu_data: false,
@@ -184,6 +156,10 @@ import CadMov from "./Cadastros/CadMov";
       },
       ListarMovimentacoes(){
         this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
+      },
+      CalculaSaldoAtual(valores){
+        var SaldoAtual = parseFloat(valores.inicial) + parseFloat(valores.aplicacao) - parseFloat(valores.resgate)
+        return SaldoAtual
       }
     }
 

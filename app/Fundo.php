@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Fundo extends Model
 {
     protected $fillable = [
-        'id', 'contContab', 'nome', 'cnpj', 'segmento', 'indReferencia', 'conta',
+        'id', 'contContab', 'nome', 'cnpj', 'indReferencia', 'conta',
         'nivelRisco', 'risco', 'idBanco', 'idEnq', 'idRPPS'
     ];
 

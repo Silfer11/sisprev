@@ -30,7 +30,6 @@
                     label="Fundo de Aplicação"
                     required
                     v-model="idFunApl"
-                    @change="atualizarMovimentacaoAplicacao()"
                     :items="listarFundos"
                     item-text="nome"
                     item-value="id"
@@ -42,25 +41,15 @@
                     label="Fundo de Resgate"
                     required
                     v-model="idFunRes"
-                    @change="atualizarMovimentacaoResgate()"
                     :items="listarFundos"
                     item-text="nome"
                     item-value="id"
                   ></v-select>
                 </v-flex>
 
-                <v-flex xs12 sm6>
-                  {{movimentacaoAplicacao.saldoInicial}}
-                </v-flex>
-
-                <v-flex xs12 sm6>
-                  <v-text-field readonly label="Saldo do fundo de resgate" v-model="movimentacaoResgate.saldoInicial"></v-text-field>
-                </v-flex>
-
                 <v-flex xs12>
                   <v-text-field label="Valor da transferência" v-model="valor" placeholder="insira o valor aqui" prefix="R$" required></v-text-field>
                 </v-flex>
-
 
               </v-layout>
             </v-form>
@@ -93,6 +82,7 @@
         listarFundos: [],
         movimentacaoAplicacao: [],
         movimentacaoResgate: [],
+        idRPPS: 1,
 
         menu: false,
         modal: false,
@@ -117,10 +107,11 @@
           var cadastro = {
             idFunApl: this.idFunApl,
             idFunRes: this.idFunRes,
-            Valor: this.Valor,
-            date
+            valor: this.valor,
+            date: this.date,
+            idRPPS: this.idRPPS
           }
-          this.$http.post('/api/fundos/bancos/cadastrar', cadastro).then(function(){
+          this.$http.post('/api/fundos/movimentacoes/movimentar', cadastro).then(function(){
             this.$emit('Recarregar')
             this.fechar()
           })

@@ -34,9 +34,6 @@ class FundosController extends Controller
       if($fundo->CNPJ !== $request->CNPJ)
         $fundo->CNPJ = $request->CNPJ;
 
-      if($fundo->segmento !== $request->segmento)
-        $fundo->segmento = $request->segmento;
-
       if($fundo->indReferencia !== $request->indReferencia)
           $fundo->indReferencia = $request->indReferencia;
 

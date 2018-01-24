@@ -81,6 +81,8 @@ Route::post('/fundos/movimentacoes/cadastrar', 'MovimentacoesController@registra
 
 Route::post('/fundos/movimentacoes/atualizar', 'MovimentacoesController@atualizar');
 
+Route::post('/fundos/movimentacoes/movimentar', 'MovimentacoesController@movimentar');
+
 //bancos
 
 Route::get('/fundos/bancos/listar', 'BancosController@listar');
