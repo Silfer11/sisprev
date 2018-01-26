@@ -10,10 +10,10 @@
             <v-form v-model="valid" ref="form" lazy-validation>
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-text-field label="Tipo Ativo" v-model="tipoAtivo" required></v-text-field>
+                  <v-text-field label="Segmento" v-model="tipoAtivo" required></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field label="Nome" v-model="nome" required></v-text-field>
+                  <v-text-field label="Enquadramento" v-model="nome" required></v-text-field>
                 </v-flex>
               </v-layout>
             </v-form>

@@ -45505,7 +45505,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tmp: '',
       search: '',
       pagination: {},
-      headers: [{ text: 'Banco', value: 'banco', align: 'center' }, { text: 'Fundo', value: 'nome', align: 'center' }, { text: 'Grau de Risco', value: 'risco', align: 'center' }, { text: 'Saldo Inicial', value: 'saldoInicial', align: 'center' }, { text: 'Resgate', value: 'resgate', align: 'center' }, { text: 'Aplicação', value: 'aplicacao', align: 'center' }, { text: 'Saldo Final do dia', value: 'saldoFinal', align: 'center' }, { text: 'Saldo atual', value: 'saldoAtual', align: 'center' }],
+      headers: [{ text: 'Banco', value: 'banco', align: 'center' }, { text: 'Fundo', value: 'nome', align: 'center' }, { text: 'Grau de Risco', value: 'risco', align: 'center' }, { text: 'Saldo inicial do mês', value: 'saldoInicial', align: 'center' }, { text: 'Resgate', value: 'resgate', align: 'center' }, { text: 'Aplicação', value: 'aplicacao', align: 'center' }, { text: 'Saldo final do dia', value: 'saldoFinal', align: 'center' }, { text: 'Saldo atual do fundo', value: 'saldoAtual', align: 'center' }],
       items: [],
       menu_data: false,
       date: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate()
@@ -46581,7 +46581,7 @@ var render = function() {
                             { attrs: { xs12: "" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "Tipo Ativo", required: "" },
+                                attrs: { label: "Segmento", required: "" },
                                 model: {
                                   value: _vm.tipoAtivo,
                                   callback: function($$v) {
@@ -46599,7 +46599,7 @@ var render = function() {
                             { attrs: { xs12: "" } },
                             [
                               _c("v-text-field", {
-                                attrs: { label: "Nome", required: "" },
+                                attrs: { label: "Enquadramento", required: "" },
                                 model: {
                                   value: _vm.nome,
                                   callback: function($$v) {

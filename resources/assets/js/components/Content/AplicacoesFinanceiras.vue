@@ -127,11 +127,11 @@ import CadMov from "./Cadastros/CadMov";
           { text: 'Banco', value: 'banco', align: 'center' },
           { text: 'Fundo', value: 'nome', align: 'center' },
           { text: 'Grau de Risco', value: 'risco', align: 'center' },
-          { text: 'Saldo Inicial', value: 'saldoInicial', align: 'center' },
+          { text: 'Saldo inicial do mês', value: 'saldoInicial', align: 'center' },
           { text: 'Resgate', value: 'resgate', align: 'center' },
           { text: 'Aplicação', value: 'aplicacao', align: 'center' },
-          { text: 'Saldo Final do dia', value: 'saldoFinal', align: 'center' },
-          { text: 'Saldo atual', value: 'saldoAtual', align: 'center' }
+          { text: 'Saldo final do dia', value: 'saldoFinal', align: 'center' },
+          { text: 'Saldo atual do fundo', value: 'saldoAtual', align: 'center' }
         ],
         items: [],
         menu_data: false,
