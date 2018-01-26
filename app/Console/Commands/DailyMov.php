@@ -44,12 +44,15 @@ class DailyMov extends Command
 
         $data_atual = date('Y-m-d');
 
+        $ultimo_dia_mes = date('Y-m-t');
+        $ultimo_dia_ano = date('Y-12-t');
+
         //verifica se é ultimo dia do mes e do ano
-        if($data_atual == date('Y-12-t')){
+        if($data_atual == $ultimo_dia_ano){
           $data_posterior = date('Y-01-01', strtotime('+1 year'));
         }
         //verifica se é ultimo dia do mes
-        elseif($data_atual == date('Y-m-t')){
+        elseif($data_atual == $ultimo_dia_mes){
           $data_posterior = date('Y-m-01', strtotime('+1 mounth'));
         }
         //se não, taca ficha
@@ -64,7 +67,7 @@ class DailyMov extends Command
            $mov_nova = new Movimentacao();
 
            //verifica se é ultimo dia do mes
-           if($data_atual == date('Y-m-t')){
+           if($data_atual == $ultimo_dia_mes){
              $mov_nova->inicial = $mov_antiga->final;
            }else{
              $mov_nova->inicial = $mov_antiga->inicial;
