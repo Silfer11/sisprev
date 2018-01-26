@@ -34,7 +34,7 @@
                 <v-card flat>
                   <v-card-text class="text-xs-center">
                         <v-form>
-                          <v-text-field label="Usuario" v-model="usuario" required></v-text-field>
+                          <v-text-field label="Usuário" v-model="usuario" required></v-text-field>
                           <v-text-field label="Senha" v-model="senha" type="password" required></v-text-field>
                           <v-btn @click="logar_F" outline color="indigo">Logar</v-btn>
                         </v-form>

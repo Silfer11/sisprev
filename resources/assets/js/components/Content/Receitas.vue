@@ -6,7 +6,7 @@
     </v-tabs-bar>
 
     <v-card>
-      <v-card-title>Receitas:
+      <v-card-title>Receitas Inseridas:
 
         <v-spacer></v-spacer>
 
@@ -154,11 +154,11 @@
         headers: [
           { text: 'Descrição', value: 'descricao', align: 'center' },
           { text: 'Origem', value: 'origem', align: 'center' },
-          { text: 'Aliquota', value: 'aliq', align: 'center' },
+          { text: 'Alíquota', value: 'aliq', align: 'center' },
           { text: 'Parcela', value: 'parcela', align: 'center' },
           { text: 'Valor Devido', value: 'valDevido', align: 'center' },
           { text: 'Data', value: 'data', align: 'center' },
-          { text: 'Editar', value: 'editar', align: 'center' },
+          { text: 'Alterar', value: 'editar', align: 'center' },
           { text: 'Excluir', value: 'excluir', align: 'center' }
         ],
         items: [],

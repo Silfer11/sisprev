@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="500px">
-      <v-btn slot="activator"><v-icon>add</v-icon>Cadastrar Descrição de Receita</v-btn>
+      <v-btn slot="activator"><v-icon>add</v-icon>Cadastrar Receita</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Cadastrar Descrição de Receita</span>
+          <span class="headline">Cadastrar Receita</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>

@@ -8,7 +8,7 @@
     </v-tabs-bar>
     <v-card>
       <v-card-title>
-        Aplicações Financeiras:
+        Movimentações Inseridas:
 
         <v-spacer></v-spacer>
 

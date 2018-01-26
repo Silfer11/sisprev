@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog"persistent max-width="500px">
-    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Receita</v-btn>
+    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Inserir Receita</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Cadastrar Receita</span>
+          <span class="headline">Inserir Receita</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -45,15 +45,15 @@
                 </v-flex>
 
                 <v-flex xs12 sm6 md4>
-                  <v-text-field label="Valor Devido" v-model="valDevido" prefix="R$" required></v-text-field>
+                  <v-text-field label="Valor Devido" v-model="valDevido" prefix="R$" placeholder="0.00" required></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6 md2>
-                  <v-text-field label="Aliquota" v-model="aliq" suffix="%"></v-text-field>
+                  <v-text-field label="Alíquota" v-model="aliq"></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6 md2>
-                  <v-text-field label="Parcela" v-model="parcela" suffix="x"></v-text-field>
+                  <v-text-field label="Parcela" v-model="parcela"></v-text-field>
                 </v-flex>
 
                 <v-flex xs12>

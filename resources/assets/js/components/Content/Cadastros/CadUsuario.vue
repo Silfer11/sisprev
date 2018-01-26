@@ -3,14 +3,14 @@
     <v-btn slot="activator"><v-icon>person_add</v-icon>Cadastrar Usuario</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Cadastrar Usuario</span>
+          <span class="headline">Cadastrar Usuário</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-form v-model="valid" ref="form" lazy-validation>
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-text-field label="Usuario" v-model="usuario" :rules="textRules" :counter="50" required></v-text-field>
+                  <v-text-field label="Usuário" v-model="usuario" :rules="textRules" :counter="50" required></v-text-field>
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field label="Senha" v-model="senha" :rules="textRules" :counter="50" type="password" required></v-text-field>
@@ -31,7 +31,7 @@
                 </v-flex>
 
                 <v-flex xs12 sm6>
-                  <v-checkbox label="Administrador" v-model="permAdmin"></v-checkbox>
+                  <v-checkbox label="Administração" v-model="permAdmin"></v-checkbox>
                 </v-flex>
 
                 <v-flex xs12 sm6>
@@ -39,11 +39,11 @@
                 </v-flex>
 
                 <v-flex xs12 sm6>
-                  <v-checkbox label="Gestor de Financeira" v-model="permGFin"></v-checkbox>
+                  <v-checkbox label="Gestor de Finanças" v-model="permGFin"></v-checkbox>
                 </v-flex>
 
                 <v-flex xs12 sm6>
-                  <v-checkbox label="Logs" v-model="permLogs"></v-checkbox>
+                  <v-checkbox label="Visualização de Logs" v-model="permLogs"></v-checkbox>
                 </v-flex>
               </v-layout>
             </v-form>

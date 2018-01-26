@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="500px">
-    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Cadastrar Despesa</v-btn>
+    <v-btn @click="atualizarSelect" slot="activator"><v-icon>playlist_add</v-icon>Inserir Despesa</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">Cadastrar Despesa</span>
+          <span class="headline">Inserir Despesa</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -29,7 +29,7 @@
                 </v-flex>
 
                 <v-flex xs12 sm6 md4>
-                  <v-text-field label="Valor" v-model="valor" prefix="R$" required></v-text-field>
+                  <v-text-field label="Valor" v-model="valor" prefix="R$" placeholder="0.00" required></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6 md4>

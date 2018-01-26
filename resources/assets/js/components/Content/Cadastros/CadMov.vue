@@ -47,8 +47,8 @@
                   ></v-select>
                 </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field label="Valor da transferência" v-model="valor" placeholder="insira o valor aqui" prefix="R$" required></v-text-field>
+                <v-flex>
+                  <v-text-field label="Valor da transferência" v-model="valor" placeholder="0.00" prefix="R$" required></v-text-field>
                 </v-flex>
 
               </v-layout>

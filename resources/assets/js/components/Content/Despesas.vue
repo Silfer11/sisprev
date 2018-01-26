@@ -6,7 +6,7 @@
     </v-tabs-bar>
 
     <v-card>
-      <v-card-title>Receitas:
+      <v-card-title>Despesas Inseridas:
 
         <v-spacer></v-spacer>
 
@@ -31,10 +31,10 @@
       <v-data-table v-bind:headers="headers" v-bind:items="items" v-bind:search="search">
         <template slot="items" slot-scope="props">
           <tr @click="props.expanded = !props.expanded">
-            <td class="text-xs-center">{{ props.item.descricao }}</td>
+          <td class="text-xs-center">{{ props.item.despesa_categoria.categoria }}</td>
             <td class="text-xs-center">R$ {{ props.item.valor }}</td>
             <td class="text-xs-center">{{ props.item.data }}</td>
-            <td class="text-xs-center">{{ props.item.despesa_categoria.categoria }}</td>
+              <td class="text-xs-center">{{ props.item.descricao }}</td>
             <td class="text-xs-center"><v-btn icon flat @click="edit(props.item)"><v-icon>edit</v-icon></v-btn></td>
             <td class="text-xs-center"><v-btn icon flat @click="exclude(props.item.id)"><v-icon>delete</v-icon></v-btn></td>
           </tr>
@@ -125,11 +125,11 @@
         search: '',
         pagination: {},
         headers: [
-          { text: 'Descrição', value: 'descricao', align: 'center' },
+          { text: 'Categoria', value: 'categoria', align: 'center' },
           { text: 'Valor', value: 'valor', align: 'center' },
           { text: 'Data', value: 'data', align: 'center' },
-          { text: 'Categoria', value: 'categoria', align: 'center' },
-          { text: 'Editar', value: 'editar', align: 'center' },
+          { text: 'Descrição', value: 'descricao', align: 'center' },
+          { text: 'Alterar', value: 'editar', align: 'center' },
           { text: 'Excluir', value: 'excluir', align: 'center' }
         ],
         items: [],

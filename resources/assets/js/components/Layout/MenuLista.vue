@@ -23,7 +23,7 @@
         </v-list-tile-action>
 
         <v-list-tile-content>
-          <v-list-tile-title>Usuarios</v-list-tile-title>
+          <v-list-tile-title>Usuários</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
@@ -63,7 +63,7 @@
         </v-list-tile-action>
 
         <v-list-tile-content>
-          <v-list-tile-title>Configuracoes</v-list-tile-title>
+          <v-list-tile-title>Configurações</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
