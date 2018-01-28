@@ -34,10 +34,10 @@
         <template slot="expand" scope="props">
           <v-card flat>
             <v-card-tittle>Permissões</v-card-tittle>
-            <v-card-text v-if="props.item.permAdmin">Administrador</v-card-text>
-            <v-card-text v-if="props.item.permGRec">Gestao de Receitas</v-card-text>
-            <v-card-text v-if="props.item.permGFin">Gestor Financeiro</v-card-text>
-            <v-card-text v-if="props.item.permLogs">Logs</v-card-text>
+            <v-card-text v-if="props.item.permAdmin">Administração</v-card-text>
+            <v-card-text v-if="props.item.permGRec">Gestão de Recursos</v-card-text>
+            <v-card-text v-if="props.item.permGFin">Gestão de Finanças</v-card-text>
+            <v-card-text v-if="props.item.permLogs">Visualização de Logs</v-card-text>
           </v-card>
         </template>
       </v-data-table>

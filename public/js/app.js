@@ -41688,19 +41688,19 @@ var render = function() {
                         _c("v-card-tittle", [_vm._v("Permissões")]),
                         _vm._v(" "),
                         props.item.permAdmin
-                          ? _c("v-card-text", [_vm._v("Administrador")])
+                          ? _c("v-card-text", [_vm._v("Administração")])
                           : _vm._e(),
                         _vm._v(" "),
                         props.item.permGRec
-                          ? _c("v-card-text", [_vm._v("Gestao de Receitas")])
+                          ? _c("v-card-text", [_vm._v("Gestão de Recursos")])
                           : _vm._e(),
                         _vm._v(" "),
                         props.item.permGFin
-                          ? _c("v-card-text", [_vm._v("Gestor Financeiro")])
+                          ? _c("v-card-text", [_vm._v("Gestão de Finanças")])
                           : _vm._e(),
                         _vm._v(" "),
                         props.item.permLogs
-                          ? _c("v-card-text", [_vm._v("Logs")])
+                          ? _c("v-card-text", [_vm._v("Visualização de Logs")])
                           : _vm._e()
                       ],
                       1
