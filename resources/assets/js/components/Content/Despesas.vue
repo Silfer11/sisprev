@@ -182,10 +182,13 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('/api/despesas/atualizar', cadastro)
+          this.$http.post('/api/despesas/atualizar', cadastro).then(
+            function(){
+              this.ListarDespesas()
+            }
+          )
 
           this.dialog = false
-          this.ListarDespesas()
         }
       },
       TrocaData(){

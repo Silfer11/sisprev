@@ -196,10 +196,12 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('/api/usuarios/atualizar', cadastro)
-
+          this.$http.post('/api/usuarios/atualizar', cadastro).then(
+            function(){
+              this.ListarUsuarios()
+            }
+          )
           this.dialog = false
-          this.ListarUsuarios()
         }
       },
       ListarUsuarios(){

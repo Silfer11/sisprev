@@ -220,10 +220,12 @@
 
             idRPPS: this.idRPPS
           }
-          this.$http.post('/api/receitas/atualizar', cadastro)
-
+          this.$http.post('/api/receitas/atualizar', cadastro).then(
+            function(){
+              this.ListarReceitas()
+            }
+          )
           this.dialog = false
-          this.ListarReceitas()
         }
       },
       TrocaData(){

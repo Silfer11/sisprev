@@ -41012,10 +41012,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/usuarios/atualizar', cadastro);
-
+        this.$http.post('/api/usuarios/atualizar', cadastro).then(function () {
+          this.ListarUsuarios();
+        });
         this.dialog = false;
-        this.ListarUsuarios();
       }
     },
     ListarUsuarios: function ListarUsuarios() {
@@ -42293,10 +42293,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/receitas/atualizar', cadastro);
-
+        this.$http.post('/api/receitas/atualizar', cadastro).then(function () {
+          this.ListarReceitas();
+        });
         this.dialog = false;
-        this.ListarReceitas();
       }
     },
     TrocaData: function TrocaData() {
@@ -44015,10 +44015,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           idRPPS: this.idRPPS
         };
-        this.$http.post('/api/despesas/atualizar', cadastro);
+        this.$http.post('/api/despesas/atualizar', cadastro).then(function () {
+          this.ListarDespesas();
+        });
 
         this.dialog = false;
-        this.ListarDespesas();
       }
     },
     TrocaData: function TrocaData() {
