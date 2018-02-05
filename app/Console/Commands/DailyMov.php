@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use App\Movimentacao;
 use App\Fundo;
+use App\Movimentacao;
 
 class DailyMov extends Command
 {
@@ -62,24 +62,27 @@ class DailyMov extends Command
 
         foreach ($Fundos as $Fundo) {
           //todo pegar saldo anterior
-           $mov_antiga = Movimentacao::where('data', $data_atual)->where('idFundo', $Fundo->id)->firstOrFail();
+           $mov_antiga = Movimentacao::where('data', $data_atual)->where('idFundo', $Fundo->id)->first();
 
-           $mov_nova = new Movimentacao();
+           if($mov_antiga != "[]"){
+             $mov_nova = new Movimentacao();
 
-           //verifica se é ultimo dia do mes
-           if($data_atual == $ultimo_dia_mes){
-             $mov_nova->inicial = $mov_antiga->final;
-           }else{
-             $mov_nova->inicial = $mov_antiga->inicial;
+             //verifica se é ultimo dia do mes
+             if($data_atual == $ultimo_dia_mes){
+               $mov_nova['inicial'] = $mov_antiga->final;
+             }else{
+               $mov_nova['inicial'] = $mov_antiga['inicial'];
+             }
+
+             $mov_nova['idFundo'] = $Fundo['id'];
+             $mov_nova['resgate'] = 0;
+             $mov_nova['aplicacao'] = 0;
+             $mov_nova['final'] = 0;
+             $mov_nova['data'] = $data_posterior;
+
+             $mov_nova->save();
            }
 
-           $mov_nova->idFundo = $Fundo->id;
-           $mov_nova->resgate = 0;
-           $mov_nova->aplicacao = 0;
-           $mov_nova->final = 0;
-           $mov_nova->data = $data_posterior;
-
-           $mov_nova->save();
         }
     }
 }
