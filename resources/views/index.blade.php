@@ -16,4 +16,5 @@
   </body>
 </html>
 
+<!-- <script type="text/javascript" src="//cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script> -->
 <script src="/js/app.js"></script>

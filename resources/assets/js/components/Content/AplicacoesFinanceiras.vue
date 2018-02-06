@@ -45,7 +45,7 @@
               <v-btn>
                 <v-edit-dialog lazy>
 
-                  R$ {{ props.item.inicial }}
+                  {{ props.item.inicial | formatar_dinheiro }}
 
                   <v-text-field
                     slot="input"
@@ -59,15 +59,15 @@
               </v-btn>
             </td>
 
-            <td class="text-xs-center">R$ {{ props.item.resgate }}</td>
+            <td class="text-xs-center">{{ props.item.resgate | formatar_dinheiro }}</td>
 
-            <td class="text-xs-center">R$ {{ props.item.aplicacao }}</td>
+            <td class="text-xs-center">{{ props.item.aplicacao | formatar_dinheiro }}</td>
 
             <td class="text-xs-center">
               <v-btn>
                 <v-edit-dialog lazy>
 
-                  R$ {{ props.item.final }}
+                  {{ props.item.final | formatar_dinheiro }}
 
                   <v-text-field
                     slot="input"
@@ -83,8 +83,8 @@
 
             <td class="text-xs-center">
 
-              <span v-if="props.item.final != 0">R$ {{ props.item.final }}</span>
-              <span v-else>R$ {{ CalculaSaldoAtual(props.item) }}</span>
+              <span v-if="props.item.final != 0">{{ props.item.final | formatar_dinheiro }}</span>
+              <span v-else>{{ CalculaSaldoAtual(props.item) | formatar_dinheiro }}</span>
 
             </td>
 
@@ -100,6 +100,7 @@
   </v-tabs>
 </template>
 <script>
+
 import CadFundo from "./Cadastros/CadFundo";
 import CadBanco from "./Cadastros/CadBanco";
 import CadEnquadramento from "./Cadastros/CadEnquadramento";
@@ -162,6 +163,5 @@ import CadMov from "./Cadastros/CadMov";
         return SaldoAtual
       }
     }
-
   }
 </script>
