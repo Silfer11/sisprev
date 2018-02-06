@@ -36,8 +36,8 @@
             <td class="text-xs-center">{{ props.item.origem }}</td>
             <td class="text-xs-center">{{ props.item.aliq }}</td>
             <td class="text-xs-center">{{ props.item.parcela }}</td>
-            <td class="text-xs-center">{{ props.item.valDevido }}</td>
-            <td class="text-xs-center">{{ props.item.data }}</td>
+            <td class="text-xs-center">{{ props.item.valDevido | formatar_dinheiro }}</td>
+            <td class="text-xs-center">{{ props.item.data | formatar_data }}</td>
             <td class="text-xs-center"><v-btn icon flat @click="edit(props.item)"><v-icon>edit</v-icon></v-btn></td>
             <td class="text-xs-center"><v-btn icon flat @click="exclude(props.item.id)"><v-icon>delete</v-icon></v-btn></td>
           </tr>

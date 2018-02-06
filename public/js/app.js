@@ -61113,11 +61113,17 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.valDevido))
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("formatar_dinheiro")(props.item.valDevido)
+                            )
+                          )
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.data))
+                          _vm._v(
+                            _vm._s(_vm._f("formatar_data")(props.item.data))
+                          )
                         ]),
                         _vm._v(" "),
                         _c(
