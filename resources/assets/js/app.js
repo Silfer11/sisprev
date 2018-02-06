@@ -4,7 +4,6 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueResource from 'vue-resource';
 import VeeValidate from 'vee-validate';
-import jspdf from 'jspdf';
 import numeral from 'numeral';
 import moment from 'moment';
 
@@ -16,7 +15,6 @@ import store from './vuex/store';
 Vue.use( Vuetify );
 Vue.use( VueResource );
 Vue.use( VeeValidate );
-Vue.use( jspdf );
 Vue.use( numeral );
 Vue.use( moment );
 

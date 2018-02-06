@@ -11,7 +11,7 @@
         <v-spacer></v-spacer>
 
           <v-menu lazy :close-on-content-click="false" v-model="menu_data" transition="scale-transition" offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
-            <v-text-field slot="activator" label="Pesquisar por data" v-model="date" prepend-icon="event" readonly></v-text-field>
+            <v-text-field slot="activator" label="Data do sistema" v-model="date" prepend-icon="event" readonly></v-text-field>
             <v-date-picker type="month" locale="pt-br" v-model="date" no-title scrollable actions>
               <template slot-scope="{ save, cancel }">
                 <v-card-actions>
@@ -32,8 +32,8 @@
         <template slot="items" slot-scope="props">
           <tr @click="props.expanded = !props.expanded">
           <td class="text-xs-center">{{ props.item.despesa_categoria.categoria }}</td>
-            <td class="text-xs-center">{{ props.item.valor }}</td>
-            <td class="text-xs-center">{{ props.item.data }}</td>
+            <td class="text-xs-center">{{ props.item.valor | formatar_dinheiro }}</td>
+            <td class="text-xs-center">{{ props.item.data | formatar_data }}</td>
               <td class="text-xs-center">{{ props.item.descricao }}</td>
             <td class="text-xs-center"><v-btn icon flat @click="edit(props.item)"><v-icon>edit</v-icon></v-btn></td>
             <td class="text-xs-center"><v-btn icon flat @click="exclude(props.item.id)"><v-icon>delete</v-icon></v-btn></td>

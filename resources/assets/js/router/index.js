@@ -8,7 +8,12 @@ import Home from '../components/Content/Home';
 import Usuarios from '../components/Content/Usuarios';
 import Receitas from '../components/Content/Receitas';
 import Despesas from '../components/Content/Despesas';
-import AplicacoesFinanceiras from '../components/Content/AplicacoesFinanceiras'
+import AplicacoesFinanceiras from '../components/Content/AplicacoesFinanceiras';
+
+import Receitas_relatorio from '../components/Content/Receitas_relatorio';
+import Despesas_relatorio from '../components/Content/Despesas_relatorio';
+import AplicacoesFinanceiras_relatorio from '../components/Content/AplicacoesFinanceiras_relatorio';
+
 
 Vue.use( VueRouter );
 
@@ -56,6 +61,24 @@ const routes = [
         name: 'AplicacoesFinanceiras',
         meta: { requiresAuth: true },
         component: AplicacoesFinanceiras
+      },
+      {
+        path: '/RelatorioReceitas',
+        name: 'Receitas_relatorio',
+        meta: { requiresAuth: true },
+        component: Receitas_relatorio
+      },
+      {
+        path: '/RelatorioDespesas',
+        name: 'Despesas_relatorio',
+        meta: { requiresAuth: true },
+        component: Despesas_relatorio
+      },
+      {
+        path: '/RelatorioAplicacoesFinanceiras',
+        name: 'AplicacoesFinanceiras_relatorio',
+        meta: { requiresAuth: true },
+        component: AplicacoesFinanceiras_relatorio
       }
     ]
   }
