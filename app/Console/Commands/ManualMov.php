@@ -52,12 +52,7 @@ class ManualMov extends Command
            if($mov_antiga != "[]"){
              $mov_nova = new Movimentacao();
 
-             //verifica se é ultimo dia do mes
-             if($data_atual == $ultimo_dia_mes){
-               $mov_nova['inicial'] = $mov_antiga->final;
-             }else{
-               $mov_nova['inicial'] = $mov_antiga['inicial'];
-             }
+             $mov_nova['inicial'] = $mov_antiga['inicial'];
 
              $mov_nova['idFundo'] = $Fundo['id'];
              $mov_nova['resgate'] = 0;
