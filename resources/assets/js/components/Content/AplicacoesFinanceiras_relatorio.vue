@@ -1,25 +1,25 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <v-btn @click="createPDF()">download</v-btn>
+        <v-btn @click="createPDF()">Gerar PDF</v-btn>
     </v-tabs-bar>
     <v-card>
-      <v-card-title>Relatório das Receitas:
+      <v-card-title>Relatório das Aplicações Financeiras:
 
         <v-spacer></v-spacer>
 
-          <v-menu lazy :close-on-content-click="false" v-model="menu_data" transition="scale-transition" offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
-            <v-text-field slot="activator" label="Data do sistema" v-model="date" prepend-icon="event" readonly></v-text-field>
-            <v-date-picker type="date" locale="pt-br" v-model="date" no-title scrollable actions>
-              <template slot-scope="{ save, cancel }">
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                  <v-btn flat color="primary" @click="TrocaData()">OK</v-btn>
-                </v-card-actions>
-              </template>
-            </v-date-picker>
-          </v-menu>
+        <v-menu lazy :close-on-content-click="false" v-model="menu_data" transition="scale-transition" offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
+          <v-text-field slot="activator" label="Data do sistema" v-model="date" prepend-icon="event" readonly></v-text-field>
+          <v-date-picker type="date" locale="pt-br" v-model="date" no-title scrollable actions>
+            <template slot-scope="{ save, cancel }">
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                <v-btn flat color="primary" @click="TrocaData()">OK</v-btn>
+              </v-card-actions>
+            </template>
+          </v-date-picker>
+        </v-menu>
 
         <v-spacer></v-spacer>
 
@@ -47,13 +47,13 @@
         </template>
         <template slot="footer">
           <tr style="font-weight: bold">
+            <td class="text-xs-center">Total</td>
             <td class="text-xs-center"></td>
             <td class="text-xs-center"></td>
-            <td class="text-xs-center"></td>
-            <td class="text-xs-center"></td>
-            <td class="text-xs-center"></td>
-            <td class="text-xs-center">Valor Total</td>
-            <td class="text-xs-center"> {{ calculaTotal() | formatar_dinheiro }}</td>
+            <td class="text-xs-center"> {{ calculaTotalInicial() | formatar_dinheiro }} </td>
+            <td class="text-xs-center"> {{ calculaTotalResgate() | formatar_dinheiro }} </td>
+            <td class="text-xs-center"> {{ calculaTotalAplicacao() | formatar_dinheiro }} </td>
+            <td class="text-xs-center"> {{ calculaTotalFinal() | formatar_dinheiro }}</td>
           </tr>
         </template>
 
@@ -86,7 +86,7 @@
         ],
         items: [],
 
-        date: new Date().getFullYear() + "-" + (new Date().getMonth()+1),
+        date: new Date().getFullYear() + "-" + (new Date().getMonth()+1) + "-" + (new Date().getDate()),
         menu: false,
         menu_data: false,
         modal: false,
@@ -106,19 +106,50 @@
       ListarMovimentacoes(){
         this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       },
-      calculaTotal(){
+      CalculaSaldoAtual(valores){
+        var SaldoAtual = parseFloat(valores.inicial) + parseFloat(valores.aplicacao) - parseFloat(valores.resgate)
+        return SaldoAtual
+      },
+      calculaTotalInicial(){
         var total = 0
         for(var i in this.items) {
-          var valDevido = this.items[i].valDevido
-          total = total + parseFloat(valDevido)
+          var inicial = this.items[i].inicial
+          total = total + parseFloat(inicial)
         }
-
+        return total
+      },
+      calculaTotalResgate(){
+        var total = 0
+        for(var i in this.items) {
+          var resgate = this.items[i].resgate
+          total = total + parseFloat(resgate)
+        }
+        return total
+      },
+      calculaTotalAplicacao(){
+        var total = 0
+        for(var i in this.items) {
+          var aplicacao = this.items[i].aplicacao
+          total = total + parseFloat(aplicacao)
+        }
+        return total
+      },
+      calculaTotalFinal(){
+        var total = 0
+        for(var i in this.items) {
+          var final = this.items[i].final
+          if(this.items[i].final != 0){
+            total = total + parseFloat(final)
+          }else{
+            total = total + parseFloat(this.CalculaSaldoAtual(this.items[i]))
+          }
+        }
         return total
       },
       createPDF () {
 
         var pdf = new jsPDF()
-        pdf.addHTML(this.$el, function(){pdf.save('teste.pdf')})
+        pdf.addHTML(this.$el, function(){pdf.save('Relatório de Movimentações.pdf')})
       },
     // GerarPdf(){
     //   let source      = this.$el

@@ -1,7 +1,7 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <v-btn @click="createPDF()">download</v-btn>
+        <v-btn @click="createPDF()">Gerar PDF</v-btn>
     </v-tabs-bar>
     <v-card>
       <v-card-title>Relatório das Despesas:
@@ -91,19 +91,17 @@
         this.$http.get('/api/despesas/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       },
       calculaTotal(){
-        var total
+        var total = 0
         for(var i in this.items) {
-          var val = this.items[i].val
-          console.log(val)
-          total = total + parseFloat(val)
+          var valor = this.items[i].valor
+          total = total + parseFloat(valor)
         }
-
         return total
       },
       createPDF () {
 
         var pdf = new jsPDF()
-        pdf.addHTML(this.$el, function(){pdf.save('teste.pdf')})
+        pdf.addHTML(this.$el, function(){pdf.save('Relatório de Despesas.pdf')})
       },
     // GerarPdf(){
     //   let source      = this.$el
