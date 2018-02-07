@@ -7,14 +7,14 @@ use Illuminate\Console\Command;
 use App\Fundo;
 use App\Movimentacao;
 
-class DailyMov extends Command
+class ManualMov extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'mov:manual';
+    protected $signature = 'manual:mov';
 
     /**
      * The console command description.
