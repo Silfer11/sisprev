@@ -94,7 +94,7 @@
         console.log(this.items)
         var total
         for(var i in this.items) {
-          total = total + this.items[i].valor
+          total = total + parseFloat(this.items[i].valor)
         }
 
         return total

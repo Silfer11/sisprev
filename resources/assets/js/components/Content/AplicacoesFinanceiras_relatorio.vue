@@ -10,7 +10,7 @@
 
           <v-menu lazy :close-on-content-click="false" v-model="menu_data" transition="scale-transition" offset-y full-width :nudge-right="40" max-width="290px" min-width="290px">
             <v-text-field slot="activator" label="Data do sistema" v-model="date" prepend-icon="event" readonly></v-text-field>
-            <v-date-picker type="month" locale="pt-br" v-model="date" no-title scrollable actions>
+            <v-date-picker type="date" locale="pt-br" v-model="date" no-title scrollable actions>
               <template slot-scope="{ save, cancel }">
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -110,7 +110,7 @@
         console.log(this.items)
         var total
         for(var i in this.items) {
-          total = total + this.items[i].valDevido
+          total = total + parseFloat(this.items[i].valDevido)
         }
 
         return total

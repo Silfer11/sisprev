@@ -66601,7 +66601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(this.items);
       var total;
       for (var i in this.items) {
-        total = total + this.items[i].valDevido;
+        total = total + parseFloat(this.items[i].valDevido);
       }
 
       return total;
@@ -67028,7 +67028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(this.items);
       var total;
       for (var i in this.items) {
-        total = total + this.items[i].valor;
+        total = total + parseFloat(this.items[i].valor);
       }
 
       return total;
@@ -67450,7 +67450,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(this.items);
       var total;
       for (var i in this.items) {
-        total = total + this.items[i].valDevido;
+        total = total + parseFloat(this.items[i].valDevido);
       }
 
       return total;
@@ -67546,7 +67546,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("v-date-picker", {
                     attrs: {
-                      type: "month",
+                      type: "date",
                       locale: "pt-br",
                       "no-title": "",
                       scrollable: "",
