@@ -57867,7 +57867,7 @@ var render = function() {
       staticClass: "white--text",
       attrs: { app: "", fixed: "", color: "red darken-4" }
     },
-    [_c("span", [_vm._v("© 2017 by Leonardo F. Silveira - v0.3")])]
+    [_c("span", [_vm._v("© 2017 by Leonardo F. Silveira - v0.6 - Beta")])]
   )
 }
 var staticRenderFns = []
@@ -59584,6 +59584,7 @@ var render = function() {
                                     attrs: {
                                       label: "Senha",
                                       rules: _vm.textRules,
+                                      type: "password",
                                       counter: 50,
                                       required: ""
                                     },
@@ -66598,10 +66599,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     calculaTotal: function calculaTotal() {
-      console.log(this.items);
       var total;
       for (var i in this.items) {
-        total = total + parseFloat(this.items[i].valDevido);
+        var valDevido = this.items[i].valDevido;
+        console.log(this.valDevido);
+        total = total + parseFloat(valDevido);
       }
 
       return total;
@@ -67025,10 +67027,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     calculaTotal: function calculaTotal() {
-      console.log(this.items);
       var total;
       for (var i in this.items) {
-        total = total + parseFloat(this.items[i].valor);
+        var val = this.items[i].val;
+        console.log(val);
+        total = total + parseFloat(val);
       }
 
       return total;
@@ -67447,10 +67450,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     calculaTotal: function calculaTotal() {
-      console.log(this.items);
-      var total;
+      var total = 0;
       for (var i in this.items) {
-        total = total + parseFloat(this.items[i].valDevido);
+        var valDevido = this.items[i].valDevido;
+        total = total + parseFloat(valDevido);
       }
 
       return total;

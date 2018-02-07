@@ -100,10 +100,11 @@
         this.$http.get('/api/receitas/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       },
       calculaTotal(){
-        console.log(this.items)
         var total
         for(var i in this.items) {
-          total = total + parseFloat(this.items[i].valDevido)
+          var valDevido = this.items[i].valDevido
+          console.log(this.valDevido)
+          total = total + parseFloat(valDevido)
         }
 
         return total

@@ -91,10 +91,11 @@
         this.$http.get('/api/despesas/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
       },
       calculaTotal(){
-        console.log(this.items)
         var total
         for(var i in this.items) {
-          total = total + parseFloat(this.items[i].valor)
+          var val = this.items[i].val
+          console.log(val)
+          total = total + parseFloat(val)
         }
 
         return total

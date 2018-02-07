@@ -57,7 +57,7 @@
                     <v-text-field label="Usuario" v-model="usuario" :rules="textRules" :counter="50" required></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-text-field label="Senha" v-model="senha" :rules="textRules" :counter="50" required></v-text-field>
+                    <v-text-field label="Senha" v-model="senha" :rules="textRules" type="password" :counter="50" required></v-text-field>
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field label="Nome" v-model="nome" :rules="textRules" :counter="50" required ></v-text-field>
