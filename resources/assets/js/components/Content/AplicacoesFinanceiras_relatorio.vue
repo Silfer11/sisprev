@@ -1,12 +1,10 @@
 <template>
   <v-tabs fixed centered>
     <v-tabs-bar class="grey">
-        <CadReceita v-on:Recarregar="ListarReceitas"></CadReceita>
-        <CadReceitaDescricao v-on:Recarregar="ListarReceitas"></CadReceitaDescricao>
         <v-btn @click="createPDF()">download</v-btn>
     </v-tabs-bar>
     <v-card>
-      <v-card-title>Receitas Inseridas:
+      <v-card-title>Relatório das Receitas:
 
         <v-spacer></v-spacer>
 
@@ -30,25 +28,35 @@
 
       <v-data-table v-bind:headers="headers" v-bind:items="items" v-bind:search="search">
         <template slot="items" slot-scope="props">
-          <tr @click="props.expanded = !props.expanded">
-            <td class="text-xs-center">{{ props.item.receita_descricao.descricao }}</td>
-            <td class="text-xs-center">{{ props.item.origem }}</td>
-            <td class="text-xs-center">{{ props.item.aliq }}</td>
-            <td class="text-xs-center">{{ props.item.parcela }}</td>
-            <td class="text-xs-center">{{ props.item.valDevido | formatar_dinheiro }}</td>
-            <td class="text-xs-center">{{ props.item.data | formatar_data }}</td>
+          <tr>
+            <td class="text-xs-center">{{ props.item.fundo.banco.nome }}</td>
+            <td class="text-xs-center">{{ props.item.fundo.nome }}</td>
+            <td class="text-xs-center">{{ props.item.fundo.risco }}</td>
+
+            <td class="text-xs-center">{{ props.item.inicial | formatar_dinheiro }}</td>
+
+            <td class="text-xs-center">{{ props.item.resgate | formatar_dinheiro }}</td>
+
+            <td class="text-xs-center">{{ props.item.aplicacao | formatar_dinheiro }}</td>
+
+            <td class="text-xs-center">
+              <span v-if="props.item.final != 0">{{ props.item.final | formatar_dinheiro }}</span>
+              <span v-else>{{ CalculaSaldoAtual(props.item) | formatar_dinheiro }}</span>
+            </td>
+          </tr>
+        </template>
+        <template slot="footer">
+          <tr style="font-weight: bold">
+            <td class="text-xs-center"></td>
+            <td class="text-xs-center"></td>
+            <td class="text-xs-center"></td>
+            <td class="text-xs-center"></td>
+            <td class="text-xs-center"></td>
+            <td class="text-xs-center">Valor Total</td>
+            <td class="text-xs-center"> {{ calculaTotal() | formatar_dinheiro }}</td>
           </tr>
         </template>
 
-        <template slot="expand" scope="props">
-          <v-card flat>
-            <v-card-text>Observações: {{ props.item.observacoes }}</v-card-text>
-          </v-card>
-        </template>
-
-        <template slot="pageText" scope="{ pageStart, pageStop }">
-          From {{ pageStart }} to {{ pageStop }}
-        </template>
 
       </v-data-table>
     </v-card>
@@ -59,7 +67,7 @@
 
   export default {
     created (){
-      this.ListarReceitas()
+      this.ListarMovimentacoes()
     },
     data () {
       return {
@@ -68,12 +76,13 @@
         search: '',
         pagination: {},
         headers: [
-          { text: 'Descrição', value: 'descricao', align: 'center' },
-          { text: 'Origem', value: 'origem', align: 'center' },
-          { text: 'Alíquota', value: 'aliq', align: 'center' },
-          { text: 'Parcela', value: 'parcela', align: 'center' },
-          { text: 'Valor Devido', value: 'valDevido', align: 'center' },
-          { text: 'Data', value: 'data', align: 'center' }
+          { text: 'Banco', value: 'banco', align: 'center' },
+          { text: 'Fundo', value: 'nome', align: 'center' },
+          { text: 'Grau de Risco', value: 'risco', align: 'center' },
+          { text: 'Saldo inicial do mês', value: 'saldoInicial', align: 'center' },
+          { text: 'Resgate', value: 'resgate', align: 'center' },
+          { text: 'Aplicação', value: 'aplicacao', align: 'center' },
+          { text: 'Saldo final do dia', value: 'saldoFinal', align: 'center' }
         ],
         items: [],
 
@@ -92,14 +101,23 @@
     methods: {
       TrocaData(){
         this.menu_data = false
-        this.ListarReceitas()
+        this.ListarMovimentacoes()
       },
-      ListarReceitas(){
-        this.$http.get('/api/receitas/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
+      ListarMovimentacoes(){
+        this.$http.get('/api/fundos/movimentacoes/listar', {params:  {date: this.date}} ).then((req) => this.items = req.data)
+      },
+      calculaTotal(){
+        console.log(this.items)
+        var total
+        for(var i in this.items) {
+          total = total + this.items[i].valDevido
+        }
+
+        return total
       },
       createPDF () {
 
-        var pdf = new jsPDF();
+        var pdf = new jsPDF()
         pdf.addHTML(this.$el, function(){pdf.save('teste.pdf')})
       },
     // GerarPdf(){

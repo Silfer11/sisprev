@@ -66553,6 +66553,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -66568,7 +66569,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tmp: '',
       search: '',
       pagination: {},
-      headers: [{ text: 'Descrição', value: 'descricao', align: 'center' }, { text: 'Origem', value: 'origem', align: 'center' }, { text: 'Alíquota', value: 'aliq', align: 'center' }, { text: 'Parcela', value: 'parcela', align: 'center' }, { text: 'Valor Devido', value: 'valDevido', align: 'center' }, { text: 'Data', value: 'data', align: 'center' }],
+      headers: [{ text: 'Descrição', value: 'descricao', align: 'center' }, { text: 'Origem', value: 'origem', align: 'center' }, { text: 'Alíquota', value: 'aliq', align: 'center' }, { text: 'Parcela', value: 'parcela', align: 'center' }, { text: 'Data', value: 'data', align: 'center' }, { text: 'Observações', value: 'observacoes', align: 'center' }, { text: 'Valor Devido', value: 'valDevido', align: 'center' }],
       items: [],
 
       date: new Date().getFullYear() + "-" + (new Date().getMonth() + 1),
@@ -66596,6 +66597,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return _this.items = req.data;
       });
     },
+    calculaTotal: function calculaTotal() {
+      console.log(this.items);
+      var total;
+      for (var i in this.items) {
+        total = total + this.items[i].valDevido;
+      }
+
+      return total;
+    },
     createPDF: function createPDF() {
 
       var pdf = new jsPDF();
@@ -66622,10 +66632,6 @@ var render = function() {
         "v-tabs-bar",
         { staticClass: "grey" },
         [
-          _c("CadReceita", { on: { Recarregar: _vm.ListarReceitas } }),
-          _vm._v(" "),
-          _c("CadReceitaDescricao", { on: { Recarregar: _vm.ListarReceitas } }),
-          _vm._v(" "),
           _c(
             "v-btn",
             {
@@ -66647,7 +66653,7 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm._v("Receitas Inseridas:\n\n      "),
+              _vm._v("Relatório das Receitas:\n\n      "),
               _c("v-spacer"),
               _vm._v(" "),
               _c(
@@ -66770,27 +66776,20 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-data-table", {
-            attrs: {
-              headers: _vm.headers,
-              items: _vm.items,
-              search: _vm.search
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "items",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "tr",
-                      {
-                        on: {
-                          click: function($event) {
-                            props.expanded = !props.expanded
-                          }
-                        }
-                      },
-                      [
+          _c(
+            "v-data-table",
+            {
+              attrs: {
+                headers: _vm.headers,
+                items: _vm.items,
+                search: _vm.search
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "items",
+                  fn: function(props) {
+                    return [
+                      _c("tr", [
                         _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(_vm._s(props.item.receita_descricao.descricao))
                         ]),
@@ -66809,59 +66808,55 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
-                            _vm._s(
-                              _vm._f("formatar_dinheiro")(props.item.valDevido)
-                            )
+                            _vm._s(_vm._f("formatar_data")(props.item.data))
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
+                          _vm._v(_vm._s(props.item.observacoes))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
-                            _vm._s(_vm._f("formatar_data")(props.item.data))
+                            _vm._s(
+                              _vm._f("formatar_dinheiro")(props.item.valDevido)
+                            )
                           )
                         ])
-                      ]
-                    )
-                  ]
+                      ])
+                    ]
+                  }
                 }
-              },
-              {
-                key: "expand",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "v-card",
-                      { attrs: { flat: "" } },
-                      [
-                        _c("v-card-text", [
-                          _vm._v(
-                            "Observações: " + _vm._s(props.item.observacoes)
-                          )
-                        ])
-                      ],
-                      1
-                    )
-                  ]
-                }
-              },
-              {
-                key: "pageText",
-                fn: function(ref) {
-                  var pageStart = ref.pageStart
-                  var pageStop = ref.pageStop
-                  return [
+              ])
+            },
+            [
+              _c("template", { slot: "footer" }, [
+                _c("tr", { staticStyle: { "font-weight": "bold" } }, [
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }, [
+                    _vm._v("Valor Total")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }, [
                     _vm._v(
-                      "\n        From " +
-                        _vm._s(pageStart) +
-                        " to " +
-                        _vm._s(pageStop) +
-                        "\n      "
+                      " " +
+                        _vm._s(_vm._f("formatar_dinheiro")(_vm.calculaTotal()))
                     )
-                  ]
-                }
-              }
-            ])
-          })
+                  ])
+                ])
+              ])
+            ],
+            2
+          )
         ],
         1
       )
@@ -66986,17 +66981,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    this.ListarReceitas();
+    this.ListarDespesas();
   },
   data: function data() {
     return {
@@ -67006,7 +66996,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tmp: '',
       search: '',
       pagination: {},
-      headers: [{ text: 'Descrição', value: 'descricao', align: 'center' }, { text: 'Origem', value: 'origem', align: 'center' }, { text: 'Alíquota', value: 'aliq', align: 'center' }, { text: 'Parcela', value: 'parcela', align: 'center' }, { text: 'Valor Devido', value: 'valDevido', align: 'center' }, { text: 'Data', value: 'data', align: 'center' }],
+      headers: [{ text: 'Categoria', value: 'categoria', align: 'center' }, { text: 'Data', value: 'data', align: 'center' }, { text: 'Descrição', value: 'descricao', align: 'center' }, { text: 'Valor', value: 'valor', align: 'center' }],
       items: [],
 
       date: new Date().getFullYear() + "-" + (new Date().getMonth() + 1),
@@ -67016,7 +67006,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       dialog: false,
 
       valid: false,
-      listarDescricoes: [],
+      listarCategorias: [],
 
       idRPPS: 1
     };
@@ -67025,14 +67015,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     TrocaData: function TrocaData() {
       this.menu_data = false;
-      this.ListarReceitas();
+      this.ListarDespesas();
     },
-    ListarReceitas: function ListarReceitas() {
+    ListarDespesas: function ListarDespesas() {
       var _this = this;
 
-      this.$http.get('/api/receitas/listar', { params: { date: this.date } }).then(function (req) {
+      this.$http.get('/api/despesas/listar', { params: { date: this.date } }).then(function (req) {
         return _this.items = req.data;
       });
+    },
+    calculaTotal: function calculaTotal() {
+      console.log(this.items);
+      var total;
+      for (var i in this.items) {
+        total = total + this.items[i].valor;
+      }
+
+      return total;
     },
     createPDF: function createPDF() {
 
@@ -67060,10 +67059,6 @@ var render = function() {
         "v-tabs-bar",
         { staticClass: "grey" },
         [
-          _c("CadReceita", { on: { Recarregar: _vm.ListarReceitas } }),
-          _vm._v(" "),
-          _c("CadReceitaDescricao", { on: { Recarregar: _vm.ListarReceitas } }),
-          _vm._v(" "),
           _c(
             "v-btn",
             {
@@ -67085,7 +67080,7 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm._v("Receitas Inseridas:\n\n      "),
+              _vm._v("Relatório das Despesas:\n\n      "),
               _c("v-spacer"),
               _vm._v(" "),
               _c(
@@ -67208,98 +67203,69 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-data-table", {
-            attrs: {
-              headers: _vm.headers,
-              items: _vm.items,
-              search: _vm.search
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "items",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "tr",
-                      {
-                        on: {
-                          click: function($event) {
-                            props.expanded = !props.expanded
-                          }
-                        }
-                      },
-                      [
+          _c(
+            "v-data-table",
+            {
+              attrs: {
+                headers: _vm.headers,
+                items: _vm.items,
+                search: _vm.search
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "items",
+                  fn: function(props) {
+                    return [
+                      _c("tr", [
                         _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.receita_descricao.descricao))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.origem))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.aliq))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.parcela))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("formatar_dinheiro")(props.item.valDevido)
-                            )
-                          )
+                          _vm._v(_vm._s(props.item.despesa_categoria.categoria))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
                             _vm._s(_vm._f("formatar_data")(props.item.data))
                           )
-                        ])
-                      ]
-                    )
-                  ]
-                }
-              },
-              {
-                key: "expand",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "v-card",
-                      { attrs: { flat: "" } },
-                      [
-                        _c("v-card-text", [
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-xs-center" }, [
+                          _vm._v(_vm._s(props.item.descricao))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
-                            "Observações: " + _vm._s(props.item.observacoes)
+                            _vm._s(
+                              _vm._f("formatar_dinheiro")(props.item.valor)
+                            )
                           )
                         ])
-                      ],
-                      1
-                    )
-                  ]
+                      ])
+                    ]
+                  }
                 }
-              },
-              {
-                key: "pageText",
-                fn: function(ref) {
-                  var pageStart = ref.pageStart
-                  var pageStop = ref.pageStop
-                  return [
+              ])
+            },
+            [
+              _c("template", { slot: "footer" }, [
+                _c("tr", { staticStyle: { "font-weight": "bold" } }, [
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }, [
+                    _vm._v("Valor Total")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }, [
                     _vm._v(
-                      "\n        From " +
-                        _vm._s(pageStart) +
-                        " to " +
-                        _vm._s(pageStop) +
-                        "\n      "
+                      " " +
+                        _vm._s(_vm._f("formatar_dinheiro")(_vm.calculaTotal()))
                     )
-                  ]
-                }
-              }
-            ])
-          })
+                  ])
+                ])
+              ])
+            ],
+            2
+          )
         ],
         1
       )
@@ -67429,12 +67395,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    this.ListarReceitas();
+    this.ListarMovimentacoes();
   },
   data: function data() {
     return {
@@ -67444,7 +67418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       tmp: '',
       search: '',
       pagination: {},
-      headers: [{ text: 'Descrição', value: 'descricao', align: 'center' }, { text: 'Origem', value: 'origem', align: 'center' }, { text: 'Alíquota', value: 'aliq', align: 'center' }, { text: 'Parcela', value: 'parcela', align: 'center' }, { text: 'Valor Devido', value: 'valDevido', align: 'center' }, { text: 'Data', value: 'data', align: 'center' }],
+      headers: [{ text: 'Banco', value: 'banco', align: 'center' }, { text: 'Fundo', value: 'nome', align: 'center' }, { text: 'Grau de Risco', value: 'risco', align: 'center' }, { text: 'Saldo inicial do mês', value: 'saldoInicial', align: 'center' }, { text: 'Resgate', value: 'resgate', align: 'center' }, { text: 'Aplicação', value: 'aplicacao', align: 'center' }, { text: 'Saldo final do dia', value: 'saldoFinal', align: 'center' }],
       items: [],
 
       date: new Date().getFullYear() + "-" + (new Date().getMonth() + 1),
@@ -67463,14 +67437,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     TrocaData: function TrocaData() {
       this.menu_data = false;
-      this.ListarReceitas();
+      this.ListarMovimentacoes();
     },
-    ListarReceitas: function ListarReceitas() {
+    ListarMovimentacoes: function ListarMovimentacoes() {
       var _this = this;
 
-      this.$http.get('/api/receitas/listar', { params: { date: this.date } }).then(function (req) {
+      this.$http.get('/api/fundos/movimentacoes/listar', { params: { date: this.date } }).then(function (req) {
         return _this.items = req.data;
       });
+    },
+    calculaTotal: function calculaTotal() {
+      console.log(this.items);
+      var total;
+      for (var i in this.items) {
+        total = total + this.items[i].valDevido;
+      }
+
+      return total;
     },
     createPDF: function createPDF() {
 
@@ -67498,10 +67481,6 @@ var render = function() {
         "v-tabs-bar",
         { staticClass: "grey" },
         [
-          _c("CadReceita", { on: { Recarregar: _vm.ListarReceitas } }),
-          _vm._v(" "),
-          _c("CadReceitaDescricao", { on: { Recarregar: _vm.ListarReceitas } }),
-          _vm._v(" "),
           _c(
             "v-btn",
             {
@@ -67523,7 +67502,7 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm._v("Receitas Inseridas:\n\n      "),
+              _vm._v("Relatório das Receitas:\n\n      "),
               _c("v-spacer"),
               _vm._v(" "),
               _c(
@@ -67646,98 +67625,111 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-data-table", {
-            attrs: {
-              headers: _vm.headers,
-              items: _vm.items,
-              search: _vm.search
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "items",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "tr",
-                      {
-                        on: {
-                          click: function($event) {
-                            props.expanded = !props.expanded
-                          }
-                        }
-                      },
-                      [
+          _c(
+            "v-data-table",
+            {
+              attrs: {
+                headers: _vm.headers,
+                items: _vm.items,
+                search: _vm.search
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "items",
+                  fn: function(props) {
+                    return [
+                      _c("tr", [
                         _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.receita_descricao.descricao))
+                          _vm._v(_vm._s(props.item.fundo.banco.nome))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.origem))
+                          _vm._v(_vm._s(props.item.fundo.nome))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.aliq))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.parcela))
+                          _vm._v(_vm._s(props.item.fundo.risco))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
                             _vm._s(
-                              _vm._f("formatar_dinheiro")(props.item.valDevido)
+                              _vm._f("formatar_dinheiro")(props.item.inicial)
                             )
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
-                            _vm._s(_vm._f("formatar_data")(props.item.data))
+                            _vm._s(
+                              _vm._f("formatar_dinheiro")(props.item.resgate)
+                            )
                           )
-                        ])
-                      ]
-                    )
-                  ]
-                }
-              },
-              {
-                key: "expand",
-                fn: function(props) {
-                  return [
-                    _c(
-                      "v-card",
-                      { attrs: { flat: "" } },
-                      [
-                        _c("v-card-text", [
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-xs-center" }, [
                           _vm._v(
-                            "Observações: " + _vm._s(props.item.observacoes)
+                            _vm._s(
+                              _vm._f("formatar_dinheiro")(props.item.aplicacao)
+                            )
                           )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-xs-center" }, [
+                          props.item.final != 0
+                            ? _c("span", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatar_dinheiro")(
+                                      props.item.final
+                                    )
+                                  )
+                                )
+                              ])
+                            : _c("span", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatar_dinheiro")(
+                                      _vm.CalculaSaldoAtual(props.item)
+                                    )
+                                  )
+                                )
+                              ])
                         ])
-                      ],
-                      1
-                    )
-                  ]
+                      ])
+                    ]
+                  }
                 }
-              },
-              {
-                key: "pageText",
-                fn: function(ref) {
-                  var pageStart = ref.pageStart
-                  var pageStop = ref.pageStop
-                  return [
+              ])
+            },
+            [
+              _c("template", { slot: "footer" }, [
+                _c("tr", { staticStyle: { "font-weight": "bold" } }, [
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }, [
+                    _vm._v("Valor Total")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-xs-center" }, [
                     _vm._v(
-                      "\n        From " +
-                        _vm._s(pageStart) +
-                        " to " +
-                        _vm._s(pageStop) +
-                        "\n      "
+                      " " +
+                        _vm._s(_vm._f("formatar_dinheiro")(_vm.calculaTotal()))
                     )
-                  ]
-                }
-              }
-            ])
-          })
+                  ])
+                ])
+              ])
+            ],
+            2
+          )
         ],
         1
       )
